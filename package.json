@@ -1,0 +1,22 @@
+{
+  "name": "stratus",
+  "version": "1.0.0",
+  "description": "A webshop platform.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecolec/Stratus.git"
+  },
+  "keywords": [
+    "shop"
+  ],
+  "author": "Cole Cassidy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thecolec/Stratus/issues"
+  },
+  "homepage": "https://github.com/thecolec/Stratus#readme"
+}
