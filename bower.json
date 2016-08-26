@@ -1,0 +1,24 @@
+{
+  "name": "stratus",
+  "description": "A webshop platform.",
+  "main": "index.js",
+  "authors": [
+    "Cole Cassidy"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "shop"
+  ],
+  "homepage": "https://github.com/thecolec/Stratus",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
