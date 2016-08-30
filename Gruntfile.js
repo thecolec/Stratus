@@ -38,16 +38,27 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'res/', src: ['**'], dest:'test/'}
         ],
       },
+    },
+    watch: {
+      options: {
+      livereload: true,
+      },
+      html: {
+        files: ['src/index.html'],
+        tasks: ['publish'],
+      },
     }
   });
 
 // Load Tasks
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
 // Register Tasks
   grunt.registerTask('default', ['htmlmin', 'copy']);
   grunt.registerTask('publish', ['htmlmin:release', 'copy:release']);
   grunt.registerTask('test', ['htmlmin:test', 'copy:test']);
+  grunt.registerTask('devmode', ['default',])
 
 };
