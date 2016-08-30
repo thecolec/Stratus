@@ -45,7 +45,7 @@ module.exports = function(grunt) {
       livereload: true,
       },
       src: {
-        files: ['src/*'],
+        files: ['src/**'],
         tasks: ['publish'],
       },
     }

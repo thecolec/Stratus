@@ -16,12 +16,26 @@
         <h1 class="text-center">Stratus</h1>
       </div>
     </div>
+    <nav class="navbar navbar-default">
+      <a class="hidden navbar-brand">Stratus</a>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Main</a></li>
+      </ul>
+
+    </nav>
+    <div id="inventorygrid"></div>
   </div>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-    </div>
-  </nav>
   <!-- Essential JS from local -->
+  <script>
+    var xhr= new XMLHttpRequest();
+    xhr.open('GET', 'inv/index.php?name=booty', true);
+    xhr.onreadystatechange = function() {
+      if (this.readyState!==4) return;
+      if (this.status!==200) return; // or whatever error handling you want
+      document.getElementById('inventorygrid').innerHTML= this.responseText;
+    };
+    xhr.send();
+  </script>
   <script src="js/jquery.js"></script>
   <script src="js/bootstrap.js"></script>
 </body>
