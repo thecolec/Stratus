@@ -28,6 +28,7 @@ module.exports = function(grunt) {
       release: {
         files: [
           {expand: true, cwd: 'bower_components/bootstrap/dist/', src: ['**'], dest: 'dist/'},
+          {expand: true, cwd: 'src/', src: ['**'], dest: 'dist/'},
           {expand: true, cwd: 'bower_components/jquery/dist/', src: ['**'], dest:'dist/js/'}
           //{expand: true, flatten: true, src: ['path/**'], dest: 'dest/', filter: 'isFile'},
         ],
@@ -43,8 +44,8 @@ module.exports = function(grunt) {
       options: {
       livereload: true,
       },
-      html: {
-        files: ['src/index.html'],
+      src: {
+        files: ['src/*'],
         tasks: ['publish'],
       },
     }
