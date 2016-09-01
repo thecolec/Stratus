@@ -28,7 +28,7 @@
   <!-- Essential JS from local -->
   <script>
     var xhr= new XMLHttpRequest();
-    xhr.open('GET', 'inv/index.php?name=booty', true);
+    xhr.open('GET', 'api/inv', true);
     xhr.onreadystatechange = function() {
       if (this.readyState!==4) return;
       if (this.status!==200) return; // or whatever error handling you want
