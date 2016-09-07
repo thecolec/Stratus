@@ -8,7 +8,7 @@ abstract class API
     protected $args = Array();
     protected $file = Null;
     public function __construct($request) {
-
+        header("Content-Type: application/json");
         // Seperate the request into different vars
         $this->args = explode('/', rtrim($request, '/'));
         $this->endpoint = array_shift($this->args);
@@ -52,7 +52,7 @@ abstract class API
     //returns endpoint data
     private function response($data, $status = 200) {
         header("HTTP/1.1 " . $status . " " . $this->requestStatus($status));
-        return $data;
+        return json_encode($data);
     }
     //removes extra header info.
     private function cleanInputs($data) {
