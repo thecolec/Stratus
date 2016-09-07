@@ -8,7 +8,7 @@ class MyAPI extends API {
   protected function inv() {
     if ($this->method == 'GET') {
       $db = new dbHost();
-      return $db -> getInv();
+      return $db -> getInv($this->mode);
     } else {
       return "Error: Invalid Request";
     }

@@ -4,7 +4,7 @@ abstract class API
     //essential vars for API processing
     protected $method = '';
     protected $endpoint = '';
-    protected $verb = '';
+    protected $mode = '';
     protected $args = Array();
     protected $file = Null;
     public function __construct($request) {
@@ -13,7 +13,8 @@ abstract class API
         $this->args = explode('/', rtrim($request, '/'));
         $this->endpoint = array_shift($this->args);
         if (array_key_exists(0, $this->args) && !is_numeric($this->args[0])) {
-            $this->verb = array_shift($this->args);
+            //$this->mode = array_shift($this->args);
+            $this->mode = array_pop($this->args);
         }
 
         // Set request method var.
@@ -52,7 +53,7 @@ abstract class API
     //returns endpoint data
     private function response($data, $status = 200) {
         header("HTTP/1.1 " . $status . " " . $this->requestStatus($status));
-        return json_encode($data);
+        return $data;
     }
     //removes extra header info.
     private function cleanInputs($data) {

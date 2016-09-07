@@ -28,7 +28,7 @@ class dbHost {
         return $result;
   }
 
-  public function getInv() {
+  public function getInv($options) {
     $result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
     if ($result->num_rows > 0) {
       // output data of each row
@@ -37,7 +37,11 @@ class dbHost {
         $rows[] = $row;
         //echo "id: " . $row["itemCode"]. " - Name: " . $row["name"]. " - Description: " . $row["description"]. "<br>";
       }
-      return $rows;
+      if($options == "php") {
+        return $rows;
+      } else {
+        return json_encode($rows);
+      }
     } else {
         echo "0 results";
     }
