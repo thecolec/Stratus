@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+      Stratus
+      Created by Cole Cassidy
+      github.com/thecolec/stratus
+      theColeC@gmail.com
+-->
+
 <html lang="en">
 
 <head>
