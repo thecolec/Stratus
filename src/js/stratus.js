@@ -2,12 +2,54 @@
 *       Cole Cassidy
 *    github.com/thecolec
 */
+var siteMode = "";
 
-//Runs onload. Begins Stratus Client services.
+// To be run on body load. Begins Stratus Client services.
 function renderStratus(){
-  callAPI('api/inv');
+
+  // Detects Currently Loaded Page
+  var path = window.location.pathname;
+  var page = path.substring(path.lastIndexOf('/')+1);
+
+  // Sets Site Mode
+  if(page == "index.php"){
+    siteMode = "index";
+  }
+  else if(page == "login.php") {
+    siteMode = "login";
+  }
+
+  modeManager();
 }
 
+// Performs behaviors depending on site mode.
+function modeManager(){
+  if(siteMode == "index") {
+
+  }
+  else if(siteMode == "login") {
+    loginModalLoader();
+  }
+}
+
+// Index Mode functions
+
+// Login Mode functions
+function loginModalLoader(){
+  $(document).ready(function () {
+    $('#login').modal('show');
+  });
+}
+function toggleLogin() {
+  $('#register').modal('hide');
+  $('#login').modal('show');
+}
+function toggleRegister() {
+  $('#login').modal('hide');
+  $('#register').modal('show');
+}
+
+// Garbage. To be deleted at a later date.
 //handles calls to the serverside api
 function callAPI(uri){
   var httpReq= new XMLHttpRequest();
