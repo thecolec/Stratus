@@ -55,7 +55,7 @@ abstract class API
         header("HTTP/1.1 " . $status . " " . $this->requestStatus($status));
         return $data;
     }
-    //removes extra header info.
+    //creates an array from input vars.
     private function cleanInputs($data) {
         $clean_input = Array();
         if (is_array($data)) {

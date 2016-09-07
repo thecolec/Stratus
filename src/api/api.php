@@ -5,6 +5,8 @@ class MyAPI extends API {
 
 //from here down are endpoint definitions
 //$endpoint/$verb/$args/$args
+
+// Inventory endpoint.
   protected function inv() {
     if ($this->method == 'GET') {
       $db = new dbHost();
@@ -13,11 +15,28 @@ class MyAPI extends API {
       return "Error: Invalid Request";
     }
   }
+
+// Initiates Authorization.
+  protected function auth() {
+    if ($this->method == 'POST') {
+    } else {
+      return "Error: Invalid Request";
+    }
+  }
+
+// Initiates User Enrollment
+  protected function enroll() {
+    if ($this->method == 'POST') {
+
+    } else {
+      return "Error: Invalid Request";
+    }
+  }
+  
+// apiwall is a catch for any request sent to an incorrect location.
   protected function apiwall() {
     if ($this->method == 'GET') {
-      return "<html>API server Online. <br/> Check docs for help.</html>";
-    } else {
-      return "Nope!!";
+      return "No endpoint specified.";
     }
   }
 }
