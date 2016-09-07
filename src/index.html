@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="css/bootstrap.css">
 
@@ -8,22 +8,24 @@
 
 <!-- Essential Meta Tags -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Stratus Storefront</title>
 
+</head>
 <body>
+  <!-- Main Container NEVER REMOVE THIS -->
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-4 col-xs-offset-4">
-        <h1 class="text-center">Stratus</h1>
-      </div>
+    <h1 class="text-center">Stratus Storefront</h1>
+    <div class="container">
+      <nav class="navbar navbar-default">
+        <a class="hidden navbar-brand">Stratus</a>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Main</a></li>
+          <li class=""><a href="#">Your Cart</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="navbar navbar-default">
-      <a class="hidden navbar-brand">Stratus</a>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Main</a></li>
-      </ul>
-
-    </nav>
-    <div id="inventorygrid"></div>
+    <div id="inventorygrid">
+    </div>
   </div>
   <!-- Essential JS from local -->
   <script>
@@ -38,4 +40,5 @@
   </script>
   <script src="js/jquery.js"></script>
   <script src="js/bootstrap.js"></script>
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
