@@ -1,13 +1,16 @@
 <?php
 require_once 'apiInterpreter.php';
+require_once 'database.php';
 class MyAPI extends API {
+
 //from here down are endpoint definitions
 //$endpoint/$verb/$args/$args
-  protected function example() {
+  protected function inv() {
     if ($this->method == 'GET') {
-      return "Hello World";
+      $db = new dbHost();
+      return $db -> getInv();
     } else {
-      return "Nope!!";
+      return "Error: Invalid Request";
     }
   }
   protected function apiwall() {
@@ -19,6 +22,7 @@ class MyAPI extends API {
   }
 }
 
+// fixes weird local request. Don't change it.
 if (!array_key_exists('HTTP_ORIGIN', $_SERVER)) {
     $_SERVER['HTTP_ORIGIN'] = $_SERVER['SERVER_NAME'];
 }
