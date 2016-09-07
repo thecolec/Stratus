@@ -1,5 +1,6 @@
 <?php
 
+//essential mysql settings
 $servername = "localhost";
 $username = "localStratus";
 $password = "";
