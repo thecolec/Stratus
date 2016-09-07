@@ -60,6 +60,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['htmlmin', 'copy']);
   grunt.registerTask('publish', ['htmlmin:release', 'copy:release']);
   grunt.registerTask('test', ['htmlmin:test', 'copy:test']);
-  grunt.registerTask('devmode', ['default',])
+  grunt.registerTask('devmode', ['default',]);
 
 };
