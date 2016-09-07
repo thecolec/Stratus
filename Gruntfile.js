@@ -22,14 +22,14 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: 'bower_components/bootstrap/dist/', src: ['**'], dest: 'res/'},
           {expand: true, cwd: 'bower_components/jquery/dist/', src: ['**'], dest:'res/js/'},
-          {expand: true, cwd: 'res/', src: ['**'], dest:'test/'}
+          {expand: true, cwd: 'res/', src: ['**'], dest:'test/'},
         ],
       },
       release: {
         files: [
           {expand: true, cwd: 'bower_components/bootstrap/dist/', src: ['**'], dest: 'dist/'},
           {expand: true, cwd: 'src/', src: ['**'], dest: 'dist/'},
-          {expand: true, cwd: 'bower_components/jquery/dist/', src: ['**'], dest:'dist/js/'}
+          {expand: true, cwd: 'bower_components/jquery/dist/', src: ['**'], dest:'dist/js/'},
           //{expand: true, flatten: true, src: ['path/**'], dest: 'dest/', filter: 'isFile'},
         ],
       },

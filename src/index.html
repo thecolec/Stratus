@@ -8,10 +8,11 @@
 
 <!-- Essential Meta Tags -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta charset="UTF-8">
 <title>Stratus Storefront</title>
 
 </head>
-<body>
+<body onload="renderStratus()">
   <!-- Main Container NEVER REMOVE THIS -->
   <div class="container-fluid">
     <h1 class="text-center">Stratus Storefront</h1>
@@ -19,26 +20,21 @@
       <nav class="navbar navbar-default">
         <a class="hidden navbar-brand">Stratus</a>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Main</a></li>
-          <li class=""><a href="#">Your Cart</a></li>
+          <li class="active" id="main"><a href="#">Main</a></li>
+          <li class="" id="cart"><a href="#">Your Cart</a></li>
         </ul>
       </nav>
     </div>
-    <div id="inventorygrid">
+    <div class="row" id="inventorygrid">
     </div>
   </div>
   <!-- Essential JS from local -->
   <script>
-    var xhr= new XMLHttpRequest();
-    xhr.open('GET', 'api/inv', true);
-    xhr.onreadystatechange = function() {
-      if (this.readyState!==4) return;
-      if (this.status!==200) return; // or whatever error handling you want
-      document.getElementById('inventorygrid').innerHTML= this.responseText;
-    };
-    xhr.send();
+
   </script>
   <script src="js/jquery.js"></script>
   <script src="js/bootstrap.js"></script>
+  <script src="js/stratus.js"></script>
+
   <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
