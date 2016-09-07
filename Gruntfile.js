@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 
 // Register Tasks
   grunt.registerTask('default', ['htmlmin', 'copy']);
-  grunt.registerTask('publish', ['htmlmin:release', 'copy:release']);
+  grunt.registerTask('publish', ['copy:release','htmlmin:release']);
   grunt.registerTask('test', ['htmlmin:test', 'copy:test']);
   grunt.registerTask('devmode', ['default',]);
 
