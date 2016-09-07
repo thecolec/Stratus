@@ -47,26 +47,26 @@
             <div class="modal-body clearfix">
               <h1 class="text-center">Stratus</h1>
               <!-- Registration Form -->
-              <form>
+              <form action="api/enroll" method="post">
                 <!-- Username -->
                 <div class="form-group">
                   <label for="username">User:</label>
-                  <input type="text" class="form-control" id="username" placeholder="User" />
+                  <input type="text" name="username" class="form-control" id="username" placeholder="User" />
                 </div>
                 <!-- Secret Code -->
                 <div class="form-group">
                   <label for="key">Secret Code:</label>
-                  <input type="password" class="form-control" id="key" placeholder="Secret Code" />
+                  <input type="password" name="secretcode" class="form-control" id="key" placeholder="Secret Code" />
                 </div>
                 <!-- Email -->
                 <div class="form-group">
                   <label for="email">Email:</label>
-                  <input type="email" class="form-control" id="email" placeholder="example@email.com" />
+                  <input type="email" name="email" class="form-control" id="email" placeholder="example@email.com" />
                 </div>
                 <!-- Password -->
                 <div class="form-group">
                   <label for="pass">Password:</label>
-                  <input type="password" class="form-control" id="pass" placeholder="Password" />
+                  <input type="password" name="pass" class="form-control" id="pass" placeholder="Password" />
                 </div>
                 <!-- Password Verification -->
                 <div class="form-group">
@@ -88,6 +88,6 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/stratus.js"></script>
     <!-- Reload Script -->
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    <script>//document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </body>
 </html>

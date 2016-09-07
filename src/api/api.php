@@ -1,6 +1,7 @@
 <?php
 require_once 'apiInterpreter.php';
 require_once 'database.php';
+require_once 'userprocessor.php';
 class MyAPI extends API {
 
 //from here down are endpoint definitions
@@ -27,12 +28,13 @@ class MyAPI extends API {
 // Initiates User Enrollment
   protected function enroll() {
     if ($this->method == 'POST') {
-
+      $builder = new userBuilder($this->request);
+      $builder->addUser();
     } else {
       return "Error: Invalid Request";
     }
   }
-  
+
 // apiwall is a catch for any request sent to an incorrect location.
   protected function apiwall() {
     if ($this->method == 'GET') {
