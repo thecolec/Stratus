@@ -28,6 +28,16 @@ class dbHost {
         return $result;
   }
 
+  public function transaction($query) {
+        $database = $this -> connect();
+        $database->begin_transaction();
+        foreach ($query as $x) {
+          $database->query($x);
+        }
+        $database->commit();
+
+  }
+
   public function getInv($options) {
     $result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
     if ($result->num_rows > 0) {
@@ -45,6 +55,21 @@ class dbHost {
     } else {
         echo "0 results";
     }
+  }
+
+// Gets required verification code.
+  public function checkCode() {
+    $test = $this->query("SELECT `Name`, `Value` FROM `config` WHERE `Name` = \"secretCode\"");
+    while ($row = $test->fetch_row()) {
+      return $row[1];
+    }
+    return "Error: Code not found.";
+  }
+
+  public function createUser($user, $hash, $email) {
+    $query[0] = "INSERT INTO users (username, hash) VALUES ('".$user."', '".$hash."');";
+    $query[1] = "INSERT INTO emails (uid, email) VALUES (LAST_INSERT_ID(), '".$email."');";
+    $this->transaction($query);
   }
 
 }
