@@ -16,7 +16,7 @@ class userBuilder {
   private $pass       = '';
   private $hash       = '';
 
-// ToDo check for void info.
+//TODO: check for void info.
   public function __construct($request) {
       $this->username = $request["username"];
       $this->secretcode = $request["secretcode"];
