@@ -16,7 +16,7 @@ function renderStratus(){
   var page = path.substring(path.lastIndexOf('/')+1);
 
   // Sets Site Mode
-  if(page == "index.php"){
+  if(page == "index.php" || page === ""){
     siteMode = "index";
   }
   else if(page == "login.php") {
