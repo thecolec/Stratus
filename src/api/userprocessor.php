@@ -16,29 +16,23 @@ class userBuilder {
   private $pass       = '';
   private $hash       = '';
 
+// ToDo check for void info.
   public function __construct($request) {
-    $this->username = $request["username"];
-    $this->secretcode = $request["secretcode"];
-    $this->email = $request["email"];
-    $this->pass = $request["pass"];
-
-    $this->hash = password_hash($this->pass, PASSWORD_DEFAULT);
+      $this->username = $request["username"];
+      $this->secretcode = $request["secretcode"];
+      $this->email = $request["email"];
+      $this->pass = $request["pass"];
+      $this->hash = password_hash($this->pass, PASSWORD_DEFAULT);
   }
 
 //Verifies secretcode
   public function verCode(){
 
     $db = new dbHost();
-    $check = $db->checkCode();
-    print_r($check);
-    if ($check ==  $this->secretcode){
-      return TRUE;
-    } else {
-      return FALSE;
-
-    }
+    return $db->checkCode($this->secretcode);
   }
 
+//Formats user info and writes to database.
   public function addUser(){
     if($this->verCode()){
       print_r("adding user");

@@ -11,15 +11,19 @@ class MyAPI extends API {
   protected function inv() {
     if ($this->method == 'GET') {
       $db = new dbHost();
-      return $db -> getInv($this->mode);
+      return $db -> getInv();
     } else {
       return "Error: Invalid Request";
     }
   }
 
 // Initiates Authorization.
-  protected function auth() {
+  protected function auth($args) {
+    $db = new dbHost();
     if ($this->method == 'POST') {
+      if ($this->mode == "secretcode") {
+        return json_encode($db->checkCode($this->request["secretcode"]));
+      }
     } else {
       return "Error: Invalid Request";
     }

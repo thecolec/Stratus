@@ -47,30 +47,32 @@ class dbHost {
         $rows[] = $row;
         //echo "id: " . $row["itemCode"]. " - Name: " . $row["name"]. " - Description: " . $row["description"]. "<br>";
       }
-      if($options == "php") {
-        return $rows;
-      } else {
-        return json_encode($rows);
-      }
+      return $rows;
     } else {
         echo "0 results";
     }
   }
 
 // Gets required verification code.
-  public function checkCode() {
+  public function checkCode($code) {
     $test = $this->query("SELECT `Name`, `Value` FROM `config` WHERE `Name` = \"secretCode\"");
     while ($row = $test->fetch_row()) {
-      return $row[1];
+      if ($row[1] == $code) {
+        return true;
+      } else {
+        return false;
+      }
     }
     return "Error: Code not found.";
   }
 
+// Creates user in database.
   public function createUser($user, $hash, $email) {
     $query[0] = "INSERT INTO users (username, hash) VALUES ('".$user."', '".$hash."');";
     $query[1] = "INSERT INTO emails (uid, email) VALUES (LAST_INSERT_ID(), '".$email."');";
     $this->transaction($query);
   }
+
 
 }
 
