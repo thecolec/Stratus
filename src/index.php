@@ -40,10 +40,8 @@
         $items = $db->getInv('php');
         foreach($items as $x){
           include('itemPanel.php');
-
         }
-
-       ?>
+      ?>
     </div>
   </div>
   <!-- Essential JS from local -->
