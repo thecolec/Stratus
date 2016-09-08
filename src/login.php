@@ -18,21 +18,25 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-body clearfix">
-              <h1 class="text-center">Stratus</h1>
+              <h1 class="text-center"></h1>
               <!-- Login Form -->
-              <form action="api/auth" method="post">
+              <form id="login" name="login" class="form-horizontal" action="api/auth" onsubmit="return validateForm()" method="post">
                 <!-- Username -->
-                <div class="form-group">
-                  <label for="username">User:</label>
-                  <input type="text" name="username" class="form-control" id="username" placeholder="User"  />
+                <div id="loginUserDiv" class="form-group">
+                  <label class="col-sm-3 control-label" for="loginUser">User:</label>
+                  <div class="col-sm-8">
+                    <input type="text" name="username" class="form-control" id="loginUser" placeholder="User" onkeyup="validateUser(this);"/>
+                  </div>
                 </div>
                 <!-- Password -->
-                <div class="form-group">
-                  <label for="pass">Password:</label>
-                  <input type="password" name="password" class="form-control" id="pass" placeholder="Password" />
+                <div id="loginPassDiv" class="form-group">
+                  <label class="col-sm-3 control-label" for="pass">Password:</label>
+                  <div class="col-sm-8 control-label">
+                    <input type="password" name="password" class="form-control" id="loginPass" placeholder="Password" onkeyup="validatePass(this);"/>
+                  </div>
                 </div>
                 <!-- Submit -->
-                <button type="submit" class="btn btn-default pull-right">Login</button>
+                <button id="loginSubmit" type="submit" class="btn btn-primary pull-right">Login</button>
               </form>
               <!-- Switch to registration -->
               <button class="btn btn-default" onclick="toggleRegister();">Register</button>
@@ -45,36 +49,46 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-body clearfix">
-              <h1 class="text-center">Stratus</h1>
+              <h1 class="text-center"></h1>
               <!-- Registration Form -->
-              <form action="api/enroll" method="post">
+              <form id="register" name="enroll" class="form-horizontal" action="api/enroll" onsubmit="return validateForm()" method="post">
                 <!-- Username -->
-                <div class="form-group">
-                  <label for="username">User:</label>
-                  <input type="text" name="username" class="form-control" id="username" placeholder="User" />
+                <div id="registerUserDiv" class="form-group">
+                  <label class="col-sm-3 control-label" for="registerUser">User:</label>
+                  <div class="col-sm-8">
+                    <input type="text" name="username" class="form-control" id="registerUser" placeholder="User" onkeyup="validateUser(this);"/>
+                  </div>
                 </div>
                 <!-- Secret Code -->
-                <div class="form-group">
-                  <label for="key">Secret Code:</label>
-                  <input type="password" name="secretcode" class="form-control" id="key" placeholder="Secret Code" />
+                <div id="regCodeDiv"class="form-group">
+                  <label class="col-sm-3 control-label" for="regCode">Secret Code:</label>
+                  <div class="col-sm-8">
+                    <input type="password" name="secretcode" class="form-control" id="regCode" placeholder="Secret Code" onblur="validateCode(this);"/>
+                  </div>
                 </div>
                 <!-- Email -->
                 <div class="form-group">
-                  <label for="email">Email:</label>
-                  <input type="email" name="email" class="form-control" id="email" placeholder="example@email.com" />
+                  <label class="col-sm-3 control-label" for="email">Email:</label>
+                  <div class="col-sm-8">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="example@email.com" />
+                  </div>
                 </div>
                 <!-- Password -->
-                <div class="form-group">
-                  <label for="pass">Password:</label>
-                  <input type="password" name="pass" class="form-control" id="pass" placeholder="Password" />
+                <div id="regPassDiv" class="form-group">
+                  <label class="col-sm-3 control-label" for="regPass">Password:</label>
+                  <div class="col-sm-8">
+                    <input type="password" name="pass" class="form-control" id="regPass" placeholder="Password" onkeyup="validatePass(this);"/>
+                  </div>
                 </div>
                 <!-- Password Verification -->
-                <div class="form-group">
-                  <label for="pass2">Repeat Password:</label>
-                  <input type="password" class="form-control" id="pass2" placeholder="Password" />
+                <div id="regPass2Div" class="form-group">
+                  <label class="col-sm-3 control-label" for="pass2">Verify:</label>
+                  <div class="col-sm-8">
+                    <input name="pass2" type="password" class="form-control" id="regPass2" placeholder="Verify Password" onkeyup="validatePass(this);"/>
+                  </div>
                 </div>
                 <!-- Submit -->
-                <button type="submit" class="btn btn-default pull-right">Register</button>
+                <button id="registerSubmit" type="submit" class="btn btn-primary pull-right">Register</button>
               </form>
               <!-- Switch to login -->
               <button class="btn btn-default" onclick="toggleLogin();">Login</button>
@@ -88,6 +102,6 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/stratus.js"></script>
     <!-- Reload Script -->
-    <script>//document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </body>
 </html>
