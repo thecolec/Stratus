@@ -7,7 +7,7 @@
 -->
 
 <html lang="en">
-
+<?php require_once('login.php'); ?>
 <head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -20,7 +20,9 @@
 <title>Stratus Storefront</title>
 
 </head>
-<body onload="renderStratus()">
+
+<body onload="initStratus()">
+
   <!-- Main Container NEVER REMOVE THIS -->
   <div class="container">
     <h1 class="text-center">Stratus Storefront</h1>

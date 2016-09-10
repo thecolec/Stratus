@@ -6,6 +6,8 @@ class dbHost {
 
   protected static $database;
 
+// Operational Functions.
+
   public function connect() {
     $servername = "localhost";
     $username = "localStratus";
@@ -38,6 +40,10 @@ class dbHost {
 
   }
 
+// Stratus specific functions.
+
+// Gets Inventory information
+// TODO.Add Options for filtering results.
   public function getInv($options) {
     $result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
     if ($result->num_rows > 0) {
@@ -53,6 +59,8 @@ class dbHost {
     }
   }
 
+// Authorization Related Functions
+
 // Gets required verification code.
   public function checkCode($code) {
     $test = $this->query("SELECT `Name`, `Value` FROM `config` WHERE `Name` = \"secretCode\"");
@@ -64,6 +72,35 @@ class dbHost {
       }
     }
     return "Error: Code not found.";
+  }
+
+// Pulls user information from db
+  public function checkUser($username, $password) {
+    $test = $this->query("SELECT `uid`, `hash` FROM `users` WHERE `username` = \"".$username."\"");
+    while($row = $test->fetch_row()) {
+      if(password_verify($password, $row[1])) {
+        $temp = array($row[0], true);
+        return $temp;
+      } else {
+        return false;
+      }
+    }
+    return "Error: Verification System Failed.";
+
+  }
+  public function regToken($uid, $token){
+    $this -> query("INSERT INTO tokens (uid, token) VALUES ('".$uid."', '".$token."') ON DUPLICATE KEY UPDATE token = values(token)");
+  }
+  public function verToken($request){
+    $token = $request['token'];
+    $test = $this->query("SELECT `uid`, `token` FROM `tokens` WHERE `token` = \"".$token."\"");
+    if($test->num_rows > 0){
+      while($row = $test->fetch_row()) {
+        return $row[0];
+      }
+    } else {
+      return false;
+    }
   }
 
 // Creates user in database.

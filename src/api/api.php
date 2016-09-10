@@ -17,23 +17,36 @@ class MyAPI extends API {
     }
   }
 
-// Initiates Authorization.
+// Authorization Endpoint
   protected function auth($args) {
     $db = new dbHost();
     if ($this->method == 'POST') {
+      // Code Authorization Mode
       if ($this->mode == "secretcode") {
+        header("Content-Type: application/json");
         return json_encode($db->checkCode($this->request["secretcode"]));
+      } else if($this->mode == "auth") {
+        $auth = new userAuth($this->request);
+        $token = $auth->authorizeUser();
+        if ($token != false){
+          setcookie('token', $token, time()+(86400*30), "/");
+          header("Content-Type: text/html; charset=utf-8");
+          return "<script type=\"text/javascript\">window.location.href = '/ '</script>";
+        }
+      } else if($this->mode == "tokenVer") {
+          return $db->verToken($this->request);
       }
     } else {
       return "Error: Invalid Request";
     }
   }
 
-// Initiates User Enrollment
+// Enrollment Engpoint
   protected function enroll() {
     if ($this->method == 'POST') {
+      header("Content-Type: text/html; charset=utf-8");
       $builder = new userBuilder($this->request);
-      $builder->addUser();
+      return $builder->addUser();
     } else {
       return "Error: Invalid Request";
     }

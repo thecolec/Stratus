@@ -2,26 +2,22 @@
 *       Cole Cassidy
 *    github.com/thecolec
 */
-var siteMode = "";
+var siteMode = "pending";
 var formCheck = false;
 var userCheck = false;
 var passCheck = false;
 var codeCheck = false;
+var token = '';
+var uid = '';
 
 // To be run on body load. Begins Stratus Client services.
-function renderStratus(){
+function initStratus(){
 
   // Detects Currently Loaded Page
   var path = window.location.pathname;
   var page = path.substring(path.lastIndexOf('/')+1);
 
   // Sets Site Mode
-  if(page == "index.php" || page === ""){
-    siteMode = "index";
-  }
-  else if(page == "login.php") {
-    siteMode = "pending";
-  }
 
   modeManager();
 
@@ -29,10 +25,12 @@ function renderStratus(){
 
 // Performs behaviors depending on site mode.
 function modeManager(){
-  if(siteMode == "index") {
-
+  if(siteMode == "authorized") {
   }
   else if(siteMode == "pending") {
+    checkToken();
+  }
+  else if(siteMode == "login") {
     loginModalLoader();
   }
 }
@@ -58,6 +56,40 @@ function toggleRegister() {
   $('#login').modal('hide');
   $('#register').modal('show');
   validateForm();
+}
+function checkToken() {
+  console.log("Checking Token");
+  if(token==='' || token === NULL){
+    console.log("No Token Found in JS");
+    if (document.cookie.indexOf('token') > -1) {
+      var b = document.cookie.match('(^|;)\\s*' + 'token' + '\\s*=\\s*([^;]+)');
+      token = b ? b.pop() : '';
+      console.log("Token Found in cookies");
+
+    } else {
+      console.log("Initiating Login");
+      siteMode = "login";
+      modeManager();
+    }
+  }
+  if (siteMode=="pending") {
+    callAPI('api/auth/tokenVer', 'POST', "token="+token, function(){
+      if (this.readyState!==4) return;
+      if (this.status!==200) return;
+      var test = this.responseText;
+      if( test !== false) {
+        uid = test;
+        console.log("UID: "+uid+" received");
+        siteMode = "authorized";
+        modeManager();
+      }
+      else {
+        siteMode = "login";
+        modeManager();
+      }
+    });
+  }
+
 }
 
 // Universal functions.
@@ -87,7 +119,7 @@ function validateUser(obj) {
   }
   validateForm();
 }
-//Validates Password(s)
+// Validates Password(s)
 function validatePass(obj) {
   if(obj.value === null || obj.value === ""){
     document.getElementById(obj.id+'Div').className += " has-error";
@@ -115,7 +147,7 @@ function validatePass(obj) {
   if (obj.id == "regPass2") { validatePass(document.getElementById("regPass")); }
   validateForm();
 }
-//Validates secretcode
+// Validates secretcode
 function validateCode(obj, test) {
   callAPI('api/auth/secretcode', 'POST', "secretcode="+obj.value, function(){
     if (this.readyState!==4) return;

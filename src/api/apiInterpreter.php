@@ -8,7 +8,7 @@ abstract class API
     protected $args = Array();
     protected $file = Null;
     public function __construct($request) {
-        header("Content-Type: application/json");
+        
         // Seperate the request into different vars
         $this->args = explode('/', rtrim($request, '/'));
         $this->endpoint = array_shift($this->args);
