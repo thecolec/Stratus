@@ -59,10 +59,10 @@ class dbHost {
     }
   }
 
-  public function getInfo($field,$value) {
-    $result = $this->query("SELECT * FROM `userTable` WHERE \"".$field."\" = \"".$value."\"");
-    if($result->num_rows > 0) {
-
+  public function getUserInfo($field,$value) {
+    $result = $this->query("SELECT * FROM `users` WHERE `".$field."` = \"".$value."\"");
+    while($row = $result->fetch_assoc()) {
+      return json_encode($row);
     }
   }
 

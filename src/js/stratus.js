@@ -9,7 +9,7 @@ var passCheck = false;
 var codeCheck = false;
 var token = '';
 var uid = '';
-
+var userJson = '';
 // To be run on body load. Begins Stratus Client services.
 function initStratus(){
 
@@ -22,10 +22,16 @@ function initStratus(){
   modeManager();
 
 }
+// Renders page using data stored in userJson.
+function renderStratus(){
+  document.getElementById("navUsername").innerHTML = userJson.username;
+
+}
 
 // Performs behaviors depending on site mode.
 function modeManager(){
   if(siteMode == "authorized") {
+    getUserInfo();
   }
   else if(siteMode == "pending") {
     checkToken();
@@ -93,6 +99,26 @@ function checkToken() {
 }
 
 // Universal functions.
+
+// Get userdata
+function getUserInfo() {
+  console.log("getting userInfo for "+uid);
+  callAPI('api/info/username', 'GET', "uid="+uid, function(){
+    if (this.readyState!==4) return;
+    if (this.status!==200) return;
+    var test = this.responseText;
+    if (test.length > 0){
+      console.log("data received: ");
+      console.log(test);
+      userJson = JSON.parse(test);
+      console.log(userJson.username);
+      renderStratus();
+    }
+  });
+
+}
+
+// Validation functions.
 // Validates Forms
 function validateForm() {
   console.log(userCheck+" "+passCheck+" "+codeCheck);
@@ -153,7 +179,6 @@ function validateCode(obj, test) {
     if (this.readyState!==4) return;
     if (this.status!==200) return;
     var test = this.responseText;
-  console.log(test);
   if (test == "true") {
     document.getElementById(obj.id+'Div').className = "form-group has-success";
     codeCheck = true;
@@ -169,6 +194,10 @@ function validateCode(obj, test) {
 function callAPI(uri, method, input, callback){
   var httpReq= new XMLHttpRequest();
   var response = '';
+  if(method == "GET") {
+    uri = uri+"?"+input;
+    input = '';
+  }
   httpReq.open(method, uri, true);
   httpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   httpReq.onreadystatechange = callback;

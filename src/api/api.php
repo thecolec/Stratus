@@ -45,14 +45,15 @@ class MyAPI extends API {
       return "Error: Invalid Request";
     }
   }
-
+// TODO: Add input parser to prevent injection attacks.
+// TODO: Improve token system to lock token to a specific session.
 // Information Endpoint
   protected function info() {
     $db = new dbHost();
     // GET
     if($this->method == 'GET') {
       if($this->mode == "username"){
-        return $db->
+        return $db->getUserInfo("uid",$this->request["uid"]);
       }
     }
   }
