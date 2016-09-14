@@ -59,6 +59,13 @@ class dbHost {
     }
   }
 
+  public function getInfo($field,$value) {
+    $result = $this->query("SELECT * FROM `userTable` WHERE \"".$field."\" = \"".$value."\"");
+    if($result->num_rows > 0) {
+
+    }
+  }
+
 // Authorization Related Functions
 
 // Gets required verification code.

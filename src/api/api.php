@@ -20,19 +20,24 @@ class MyAPI extends API {
 // Authorization Endpoint
   protected function auth($args) {
     $db = new dbHost();
+    // POST
     if ($this->method == 'POST') {
-      // Code Authorization Mode
+
+      // Create Secret Code Mode
       if ($this->mode == "secretcode") {
         header("Content-Type: application/json");
         return json_encode($db->checkCode($this->request["secretcode"]));
+      // User Authorization Mode
       } else if($this->mode == "auth") {
         $auth = new userAuth($this->request);
         $token = $auth->authorizeUser();
+        // If user has a token
         if ($token != false){
           setcookie('token', $token, time()+(86400*30), "/");
           header("Content-Type: text/html; charset=utf-8");
           return "<script type=\"text/javascript\">window.location.href = '/ '</script>";
         }
+      // Token Verification Mode
       } else if($this->mode == "tokenVer") {
           return $db->verToken($this->request);
       }
@@ -41,7 +46,18 @@ class MyAPI extends API {
     }
   }
 
-// Enrollment Engpoint
+// Information Endpoint
+  protected function info() {
+    $db = new dbHost();
+    // GET
+    if($this->method == 'GET') {
+      if($this->mode == "username"){
+        return $db->
+      }
+    }
+  }
+
+// Enrollment Endpoint
   protected function enroll() {
     if ($this->method == 'POST') {
       header("Content-Type: text/html; charset=utf-8");
