@@ -45,8 +45,8 @@ class MyAPI extends API {
       return "Error: Invalid Request";
     }
   }
-// TODO: Add input parser to prevent injection attacks.
-// TODO: Improve token system to lock token to a specific session.
+// TODO:0 Add input parser to prevent injection attacks.
+// TODO:10 Improve token system to lock token to a specific session.
 // Information Endpoint
   protected function info() {
     $db = new dbHost();
