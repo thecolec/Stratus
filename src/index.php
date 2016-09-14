@@ -28,8 +28,9 @@
     <h1 class="text-center">Stratus Storefront</h1>
       <nav class="navbar navbar-default">
         <div class="container-fluid">
+          <a class="hidden-xs navbar-brand navbar-right" id="username"></a>
         <ul class="nav navbar-nav">
-          <li class="hidden-xs navbar-brand">Stratus</li>
+
           <li class="active" id="main"><a href="#">Main</a></li>
           <li class="" id="cart"><a href="#">Your Cart</a></li>
         </ul>
