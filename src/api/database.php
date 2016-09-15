@@ -59,6 +59,7 @@ class dbHost {
     }
   }
 
+//TODO: Implement separate userInfo table.
   public function getUserInfo($field,$value) {
     $result = $this->query("SELECT * FROM `users` WHERE `".$field."` = \"".$value."\"");
     while($row = $result->fetch_assoc()) {

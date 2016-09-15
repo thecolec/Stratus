@@ -28,12 +28,24 @@
     <h1 class="text-center">Stratus Storefront</h1>
       <nav class="navbar navbar-default">
         <div class="container-fluid">
-          <a class="hidden-xs navbar-brand navbar-right" id="navUsername"></a>
-        <ul class="nav navbar-nav">
 
+        <ul class="nav navbar-nav">
           <li class="active" id="main"><a href="#">Main</a></li>
           <li class="" id="cart"><a href="#">Your Cart</a></li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="hidden-xs navbar-brand dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="navUsername"></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">logout</a></li>
+            </ul>
+          </li>
+        </ul>
+
       </div>
       </nav>
     <div class="row" id="inventorygrid">
