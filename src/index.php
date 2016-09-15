@@ -41,7 +41,7 @@
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">logout</a></li>
+                <li><a onclick="logout();" href="#">logout</a></li>
             </ul>
           </li>
         </ul>
