@@ -33,20 +33,18 @@
           <li class="active" id="main"><a href="#">Main</a></li>
           <li class="" id="cart"><a href="#">Your Cart</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="hidden-xs navbar-brand dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="navUsername"></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a onclick="logout();" href="#">logout</a></li>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="navbar-brand dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="navUsername"></a>
+                <ul class="dropdown-menu" id="userMenu">
+                  <li><a href="#">Options</a></li>
+                  <li><a href="#">Help</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a onclick="logout();" href="#">logout</a></li>
+                </ul>
+              </li>
             </ul>
-          </li>
-        </ul>
-
-      </div>
+        </div>
       </nav>
     <div class="row" id="inventorygrid">
       <?php

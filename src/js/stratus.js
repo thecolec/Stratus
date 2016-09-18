@@ -28,7 +28,16 @@ function renderStratus(){
 
 }
 
-// Performs behaviors depending on site mode.
+//    Performs behaviors depending on site mode.
+//    Site modes determine the context of the webapp, determining what is rendered and how.
+//      MODES:
+//        pending       -   Default mode, where verification takes place, and the app decides what mode to set itself in.
+//        authorized    -   Temporary mode, where authorization is confirmed and the app beings loading userData.
+//        login         -   When authorization/verification fails this mode allows for login/registration.
+//        orders        -   Admin only mode. This lists all open orders. TODO: Add orders menu.
+//        cart          -   Allows users to see items currently in their cart and initiate checkout.
+//        browse        -   Allows users to browse the catalogue, view items, and filter what is displayed.
+//        options       -   Allows users to configure their individual settings. This is what they see on their fist login.
 function modeManager(){
   if(siteMode == "authorized") {
     getUserInfo();
