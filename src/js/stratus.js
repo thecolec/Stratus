@@ -10,6 +10,9 @@ var codeCheck = false;
 var token = '';
 var uid = '';
 var userJson = '';
+var invJson = '';
+var x=0;
+var contentGrid = document.getElementById("contentgrid");
 // To be run on body load. Begins Stratus Client services.
 function initStratus(){
 
@@ -25,28 +28,36 @@ function initStratus(){
 // Renders page using data stored in userJson.
 function renderStratus(){
   document.getElementById("navUsername").innerHTML = userJson.username;
-
+  gridRenderInv();
 }
 
 //    Performs behaviors depending on site mode.
 //    Site modes determine the context of the webapp, determining what is rendered and how.
 //      MODES:
 //        pending       -   Default mode, where verification takes place, and the app decides what mode to set itself in.
-//        authorized    -   Temporary mode, where authorization is confirmed and the app beings loading userData.
+//        loading       -   Temporary mode, where authorization is confirmed and the app beings loading userData.
 //        login         -   When authorization/verification fails this mode allows for login/registration.
-//        orders        -   Admin only mode. This lists all open orders. TODO: Add orders menu.
+//        orders        -   Admin only mode. This lists all open orders. IDEA: Add orders menu.
 //        cart          -   Allows users to see items currently in their cart and initiate checkout.
 //        browse        -   Allows users to browse the catalogue, view items, and filter what is displayed.
 //        options       -   Allows users to configure their individual settings. This is what they see on their fist login.
 function modeManager(){
-  if(siteMode == "authorized") {
-    getUserInfo();
+  if(siteMode == "browse") {
+    gridRenderInv();
   }
   else if(siteMode == "pending") {
     checkToken();
   }
   else if(siteMode == "login") {
     loginModalLoader();
+  }
+  else if(siteMode == "loading") {
+    getUserInfo();
+    getInv();
+
+    siteMode = "browse";
+    renderStratus();
+    modeManager();
   }
 }
 
@@ -73,14 +84,14 @@ function toggleRegister() {
   validateForm();
 }
 function checkToken() {
+  //TODO: Verify Token on login. Clear token if invalid.
   console.log("Checking Token");
   if(token==='' || token === NULL){
-    console.log("No Token Found in JS");
+    console.log("No Token Found in client memory");
     if (document.cookie.indexOf('token') > -1) {
       var b = document.cookie.match('(^|;)\\s*' + 'token' + '\\s*=\\s*([^;]+)');
       token = b ? b.pop() : '';
       console.log("Token Found in cookies");
-
     } else {
       console.log("Initiating Login");
       siteMode = "login";
@@ -88,17 +99,20 @@ function checkToken() {
     }
   }
   if (siteMode=="pending") {
+    //TODO: Migrate away from UID, identify users using Token alone.
     callAPI('api/auth/tokenVer', 'POST', "token="+token, function(){
       if (this.readyState!==4) return;
       if (this.status!==200) return;
       var test = this.responseText;
-      if( test !== false) {
+      if( test !== "false") {
         uid = test;
         console.log("UID: "+uid+" received");
-        siteMode = "authorized";
+        siteMode = "loading";
         modeManager();
       }
       else {
+        document.getElementById("navUsername").innerHTML = "";
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
         siteMode = "login";
         modeManager();
       }
@@ -126,9 +140,54 @@ function getUserInfo() {
       userJson = JSON.parse(test);
       console.log(userJson.username);
       renderStratus();
+
     }
   });
 
+}
+
+// Get Inventory using filter.
+function getInv() {
+  console.log("requesting inventory");
+  callAPI('api/inv', 'GET', '', function(){
+    if (this.readyState !== 4) return;
+    if (this.status !== 200) return;
+    var inv = this.responseText;
+    console.log(inv);
+    if(inv.length>0){
+      console.log(inv);
+      invJson = JSON.parse(inv).item;
+      console.log(invJson[0].name);
+      renderStratus();
+    }
+  });
+}
+
+// Grid Rendering functions
+// Should serve no purpose other than rendering.
+// Any required data should be pulled from a public variable or input specifically into its parameters.
+// These functions should NEVER call any external functions.
+
+// Renders Grid According to mode.
+
+// Renders Inventory
+function gridRenderInv() {
+  clearGrid();
+  for (x=0; x < Object.keys(invJson).length; x++){
+    contentGrid.innerHTML += "<div class=\"col-sm-2\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\" id=\"item-"+invJson[x].itemCode+"\">"+invJson[x].name+"</h3></div><div class=\"panel-body\" id=\"description\">"+invJson[x].description+"</div></div></div>";
+  }
+}
+
+// Renders Error Message In grid-space
+function gridRenderMessage(message) {
+  clearGrid();
+  contentGrid.innerHTML ="<div class=\"col-sm-8 col-sm-offset-2\"><div class=\"alert alert-danger\" role=\"alert\">"+message+"</div></div>";
+}
+
+
+// Clears Content Grid
+function clearGrid() {
+  contentGrid.innerHTML = "";
 }
 
 // Validation functions.
@@ -219,19 +278,4 @@ function callAPI(uri, method, input, callback){
   } else {
     httpReq.send();
   }
-}
-
-// Garbage. To be deleted at a later date.
-//detects what panels need to be created based off of JSON input.
-function createItemGrid(items){
-  console.log(items.length);
-  console.log(items[1]);
-  for(x = 0; x <= items.length-1; x++) {
-    createItemPanel(items[x]);
-  }
-}
-
-//handles loading and populating panels
-function createItemPanel(itemJson){
-
 }

@@ -44,16 +44,16 @@ class dbHost {
 
 // Gets Inventory information
 // TODO.Add Options for filtering results.
-  public function getInv($options) {
+  public function getInv() {
     $result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
     if ($result->num_rows > 0) {
       // output data of each row
-
+      $i = 0;
       while($row = $result->fetch_assoc()) {
-        $rows[] = $row;
+        $rows["item"][$i++] = $row;
         //echo "id: " . $row["itemCode"]. " - Name: " . $row["name"]. " - Description: " . $row["description"]. "<br>";
       }
-      return $rows;
+      return json_encode($rows);
     } else {
         echo "0 results";
     }
@@ -107,7 +107,7 @@ class dbHost {
         return $row[0];
       }
     } else {
-      return false;
+      return "false";
     }
   }
 
