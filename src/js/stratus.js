@@ -88,7 +88,7 @@ function toggleRegister() {
   validateForm();
 }
 function checkToken() {
-  //TODO:30 Verify Token on login. Clear token if invalid.
+  //DONE:0 Verify Token on login. Clear token if invalid.
   console.log("TOKEN-VER: Checking Token");
   if(token==='' || token === NULL){
     console.log("TOKEN-VER: No Token Found in client memory");
@@ -103,7 +103,7 @@ function checkToken() {
     }
   }
   if (siteMode=="pending") {
-    //DONE:0 Migrate away from UID, identify users using Token alone.
+    //DONE:10 Migrate away from UID, identify users using Token alone.
     console.log("TOKEN-VER: Verifying TOKEN");
     callAPI('api/auth/tokenVer', 'POST', "token="+token, function(){
       if (this.readyState!==4) return;
