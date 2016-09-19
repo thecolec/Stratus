@@ -68,7 +68,7 @@ class dbHost {
       while($row=$test->fetch_row()) {
         $uid = $row[0];
       }
-      $testb = $this->query("SELECT * FROM `users` WHERE `uid` = \"".$uid."\"");
+      $testb = $this->query("SELECT `uid`, `username` FROM `users` WHERE `uid` = \"".$uid."\"");
       while($row = $testb->fetch_assoc()) {
         return json_encode($row);
       }
