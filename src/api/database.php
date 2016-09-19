@@ -59,11 +59,19 @@ class dbHost {
     }
   }
 
-//TODO: Implement separate userInfo table.
-  public function getUserInfo($field,$value) {
-    $result = $this->query("SELECT * FROM `users` WHERE `".$field."` = \"".$value."\"");
-    while($row = $result->fetch_assoc()) {
-      return json_encode($row);
+//TODO: Implement separate userInfo tables.
+//TODO: Unify internal UID lookup function.
+  public function getUserInfo($request) {
+    $token = $request["token"];
+    $test = $this->query("SELECT `uid` FROM `tokens` WHERE `token` = \"".$token."\"");
+    if($test->num_rows > 0){
+      while($row=$test->fetch_row()) {
+        $uid = $row[0];
+      }
+      $testb = $this->query("SELECT * FROM `users` WHERE `uid` = \"".$uid."\"");
+      while($row = $testb->fetch_assoc()) {
+        return json_encode($row);
+      }
     }
   }
 
@@ -110,12 +118,34 @@ class dbHost {
       return "false";
     }
   }
+  public function verAdmin($request){
+    $token = $request['token'];
+    $test = $this->query("SELECT `uid` FROM `tokens` WHERE `token` = \"".$token."\"");
+    if($test->num_rows > 0){
+      while($row=$test->fetch_row()) {
+        $uid = $row[0];
+      }
+      $testb = $this->query("SELECT `uid` FROM `admins` WHERE `uid` = \"".$uid."\"");
+      if($testb->num_rows > 0) return "true";
+      return "false";
+    } else {
+      return "false";
+    }
+  }
 
 // Creates user in database.
   public function createUser($user, $hash, $email) {
     $query[0] = "INSERT INTO users (username, hash) VALUES ('".$user."', '".$hash."');";
     $query[1] = "INSERT INTO emails (uid, email) VALUES (LAST_INSERT_ID(), '".$email."');";
     $this->transaction($query);
+  }
+  public function addInv($request) {
+    $input = "INSERT INTO inventory (name, inStock, description, onSale) VALUES ('".$request["name"]."', '".$request["stock"]."', '".$request["description"]."', '".$request["sale"]."')";
+    if($this->verAdmin($request)) {
+      $this->query($input);
+    } else {
+      return "ERROR: Not Authorized";
+    }
   }
 
 

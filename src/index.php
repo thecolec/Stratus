@@ -70,10 +70,11 @@
     <!-- Groundwork for an options framework.-->
     <!-- TODO: Implement an options menu -->
     <?php require_once('options.php'); ?>
+    <?php require_once('addinv.php'); ?>
   </div>
-  <div class="container-fluid pull-right id="overlay">
+  <div class="container-fluid pull-right" id="overlay">
 
-  <button class="btn btn-primary" type="input" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+  <button class="btn btn-primary btn-lg hidden" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
   </div>
   <!-- Essential JS from local -->
   <script>

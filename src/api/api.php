@@ -9,11 +9,15 @@ class MyAPI extends API {
 
 // Inventory endpoint.
   protected function inv() {
+    $db = new dbHost();
     if ($this->method == 'GET') {
-      $db = new dbHost();
       return $db -> getInv();
-    } else {
-      return "Error: Invalid Request";
+    } 
+    if ($this->method == 'POST') {
+      if ($this->mode == "add") {
+        printf("Add function called");
+        $db->addInv($this->request);
+      }
     }
   }
 
@@ -40,6 +44,8 @@ class MyAPI extends API {
       // Token Verification Mode
       } else if($this->mode == "tokenVer") {
           return $db->verToken($this->request);
+      } else if($this->mode == "adminchk") {
+          return $db->verAdmin($this->request);
       }
     } else {
       return "Error: Invalid Request";
@@ -53,7 +59,7 @@ class MyAPI extends API {
     // GET
     if($this->method == 'GET') {
       if($this->mode == "username"){
-        return $db->getUserInfo("uid",$this->request["uid"]);
+        return $db->getUserInfo($this->request);
       }
     }
   }

@@ -1,6 +1,6 @@
 body { padding-top: 70px; }
 #overlay {
-  position: relative;
-  top: 10px;
+  position: fixed;
+  bottom: 10px;
   right: 10px;
 }

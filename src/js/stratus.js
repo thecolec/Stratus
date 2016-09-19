@@ -7,6 +7,7 @@ var formCheck = false;
 var userCheck = false;
 var passCheck = false;
 var codeCheck = false;
+var hasAdmin  = false;
 var token = '';
 var uid = '';
 var userJson = '';
@@ -28,7 +29,13 @@ function initStratus(){
 // Renders page using data stored in userJson.
 function renderStratus(){
   document.getElementById("navUsername").innerHTML = userJson.username;
-  gridRenderInv();
+  if(!hasAdmin) {
+    document.getElementById("addInvBtn").className = "hidden";
+  }
+  if(hasAdmin) {
+    document.getElementById("addInvBtn").className = "btn btn-primary btn-lg";
+  }
+
 }
 
 //    Performs behaviors depending on site mode.
@@ -42,8 +49,8 @@ function renderStratus(){
 //        browse        -   Allows users to browse the catalogue, view items, and filter what is displayed.
 //        options       -   Allows users to configure their individual settings. This is what they see on their fist login.
 function modeManager(){
+  console.log("SITEMODE: "+siteMode);
   if(siteMode == "browse") {
-    gridRenderInv();
   }
   else if(siteMode == "pending") {
     checkToken();
@@ -53,11 +60,8 @@ function modeManager(){
   }
   else if(siteMode == "loading") {
     getUserInfo();
+    doesHaveAdmin();
     getInv();
-
-    siteMode = "browse";
-    renderStratus();
-    modeManager();
   }
 }
 
@@ -85,28 +89,29 @@ function toggleRegister() {
 }
 function checkToken() {
   //TODO: Verify Token on login. Clear token if invalid.
-  console.log("Checking Token");
+  console.log("TOKEN-VER: Checking Token");
   if(token==='' || token === NULL){
-    console.log("No Token Found in client memory");
+    console.log("TOKEN-VER: No Token Found in client memory");
     if (document.cookie.indexOf('token') > -1) {
       var b = document.cookie.match('(^|;)\\s*' + 'token' + '\\s*=\\s*([^;]+)');
       token = b ? b.pop() : '';
-      console.log("Token Found in cookies");
+      console.log("TOKEN-VER: Token Found in cookies");
     } else {
-      console.log("Initiating Login");
+      console.log("TOKEN-VER: Initiating Login");
       siteMode = "login";
       modeManager();
     }
   }
   if (siteMode=="pending") {
     //TODO: Migrate away from UID, identify users using Token alone.
+    console.log("TOKEN-VER: Verifying TOKEN");
     callAPI('api/auth/tokenVer', 'POST', "token="+token, function(){
       if (this.readyState!==4) return;
       if (this.status!==200) return;
       var test = this.responseText;
       if( test !== "false") {
         uid = test;
-        console.log("UID: "+uid+" received");
+        console.log("TOKEN-VER: uid "+uid+" received");
         siteMode = "loading";
         modeManager();
       }
@@ -119,7 +124,22 @@ function checkToken() {
     });
   }
 }
-
+function doesHaveAdmin(){
+  callAPI('api/auth/adminchk', 'POST', "token="+token, function(){
+    if (this.readyState!==4) return;
+    if (this.status!==200) return;
+    var test = this.responseText;
+    console.log("ADMIN-CHK: Verifying Admin");
+    if (test == "true") {
+      hasAdmin = true;
+      console.log("ADMIN-CHK: "+hasAdmin);
+    } else {
+      hasAdmin = false;
+      console.log("ADMIN-CHK: "+hasAdmin);
+    }
+    renderStratus();
+  });
+}
 function logout(){
   document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
   window.location.href = "/";
@@ -129,18 +149,16 @@ function logout(){
 
 // Get userdata
 function getUserInfo() {
-  console.log("getting userInfo for "+uid);
-  callAPI('api/info/username', 'GET', "uid="+uid, function(){
+  console.log("USER-INFO: getting userInfo for "+token);
+  callAPI('api/info/username', 'GET', "token="+token, function(){
     if (this.readyState!==4) return;
     if (this.status!==200) return;
     var test = this.responseText;
     if (test.length > 0){
-      console.log("data received: ");
-      console.log(test);
+      console.log("USER-INFO: data received: ");
+      console.log("USER-INFO: "+test);
       userJson = JSON.parse(test);
-      console.log(userJson.username);
       renderStratus();
-
     }
   });
 
@@ -148,17 +166,16 @@ function getUserInfo() {
 
 // Get Inventory using filter.
 function getInv() {
-  console.log("requesting inventory");
+  console.log("INV: requesting inventory");
   callAPI('api/inv', 'GET', '', function(){
     if (this.readyState !== 4) return;
     if (this.status !== 200) return;
     var inv = this.responseText;
-    console.log(inv);
+    console.log("INV: "+inv);
     if(inv.length>0){
-      console.log(inv);
       invJson = JSON.parse(inv).item;
-      console.log(invJson[0].name);
       renderStratus();
+      gridRenderInv();
     }
   });
 }
@@ -175,6 +192,13 @@ function gridRenderInv() {
   clearGrid();
   for (x=0; x < Object.keys(invJson).length; x++){
     contentGrid.innerHTML += "<div class=\"col-sm-2\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\" id=\"item-"+invJson[x].itemCode+"\">"+invJson[x].name+"</h3></div><div class=\"panel-body\" id=\"description\">"+invJson[x].description+"</div></div></div>";
+  }
+}
+
+function gridRenderInvTEST() {
+  clearGrid();
+  for (x=0; x < 100; x++){
+    contentGrid.innerHTML += "<div class=\"col-sm-3\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\" id=\"item-"+invJson[0].itemCode+"\">"+invJson[0].name+"</h3></div><div class=\"panel-body\" id=\"description\">"+invJson[0].description+"</div></div></div>";
   }
 }
 
@@ -199,6 +223,29 @@ function validateForm() {
   } else {
     document.getElementById(siteMode+"Submit").setAttribute("disabled","disabled");
   }
+}
+function addInv() {
+  console.log("ADD-INV: Form submitted");
+  var name = document.getElementById("addInvName").value;
+  var desc = document.getElementById("addInvDesc").value;
+  var stock = document.getElementById("addInvStock").value;
+  var sale = document.getElementById("addInvSale").value;
+  console.log("ADD-INV: "+name+" "+desc+" "+stock+" "+sale);
+  document.getElementById("addInvName").value = "";
+  document.getElementById("addInvDesc").value = "";
+  document.getElementById("addInvStock").value = "";
+  document.getElementById("addInvSale").value = "";
+  var input = "name="+name+"&description="+desc+"&stock="+stock+"&sale="+sale+"&token="+token;
+  console.log(input);
+
+  callAPI('api/inv/add', 'POST', input, function(){
+    if (this.readyState !== 4) return;
+    if (this.status !== 200) return;
+    var inv = this.responseText;
+    console.log(inv);
+  });
+
+
 }
 // Validates User Field
 function validateUser(obj) {
@@ -273,6 +320,7 @@ function callAPI(uri, method, input, callback){
   httpReq.open(method, uri, true);
   httpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   httpReq.onreadystatechange = callback;
+  console.log(input);
   if(input !== null ) {
     httpReq.send(input);
   } else {

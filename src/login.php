@@ -1,5 +1,6 @@
 <div class="container">
-<!-- Login Modal -->
+<!-- Login Modal
+TODO: Add failure redirect.-->
   <div class="modal fade in" tabindex="-1" role="dialog" id="login">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
