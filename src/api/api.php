@@ -52,7 +52,7 @@ class MyAPI extends API {
     }
   }
 // TODO:0 Add input parser to prevent injection attacks.
-// TODO:10 Improve token system to lock token to a specific session.
+// TODO:40 Improve token system to lock token to a specific session.
 // Information Endpoint
   protected function info() {
     $db = new dbHost();

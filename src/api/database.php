@@ -59,8 +59,8 @@ class dbHost {
     }
   }
 
-//TODO: Implement separate userInfo tables.
-//TODO: Unify internal UID lookup function.
+//TODO:10 Implement separate userInfo tables.
+//TODO:20 Unify internal UID lookup function.
   public function getUserInfo($request) {
     $token = $request["token"];
     $test = $this->query("SELECT `uid` FROM `tokens` WHERE `token` = \"".$token."\"");
