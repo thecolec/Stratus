@@ -5,6 +5,7 @@
       <h3 class="panel-title" id="name">'.$x['name'].'</h3>
     </div>
     <div class="panel-body" id="description">
+    <img src="img/juice.png" />
     '.$x['description'].'
     </div>
   </div>

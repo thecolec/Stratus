@@ -80,9 +80,12 @@
   <script>
 
   </script>
-  <script src="js/jquery.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/stratus.js"></script>
+  <script src="js/jquery.js"></script>              <!--jQuery import               -->
+  <script src="js/bootstrap.js"></script>           <!--Bootstrap import            -->
+  <script src="js/stratus.js"></script>             <!--Stratus core import         -->
+  <script src="js/stratusGrid.js"></script>         <!--Stratus grid system         -->
+  <script src="js/stratusValidate.js"></script>     <!--Stratus form validation     -->
+  <script src="js/stratusAuth.js"></script>         <!--Stratus user authentication -->
 
 
   <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
