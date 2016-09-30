@@ -44,6 +44,7 @@ class dbHost {
 
 // Gets Inventory information
 // TODO.Add Options for filtering results.
+// TODO: Add System for parent/child PIDs
   public function getInv() {
     $result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
     if ($result->num_rows > 0) {

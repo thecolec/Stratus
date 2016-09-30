@@ -4,6 +4,9 @@ require_once 'database.php';
 require_once 'userprocessor.php';
 class MyAPI extends API {
 
+//TODO: create system for database maintenance.
+//TODO: implement per-request token check.
+//TODO: JWT?
 //from here down are endpoint definitions
 //$endpoint/$verb/$args/$args
 
@@ -12,7 +15,7 @@ class MyAPI extends API {
     $db = new dbHost();
     if ($this->method == 'GET') {
       return $db -> getInv();
-    } 
+    }
     if ($this->method == 'POST') {
       if ($this->mode == "add") {
         printf("Add function called");
