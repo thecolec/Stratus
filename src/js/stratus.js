@@ -13,6 +13,7 @@ var uid = '';
 var userJson = '';
 var invJson = '';
 var x=0;
+var filterList = "none";
 var contentGrid = document.getElementById("contentgrid");
 // To be run on body load. Begins Stratus Client services.
 function initStratus(){
@@ -30,13 +31,16 @@ function initStratus(){
 function renderStratus(){
   document.getElementById("navUsername").innerHTML = userJson.username;
   if(!hasAdmin) {
-    document.getElementById("addInvBtn").className = "hidden";
+    //document.getElementById("addInvBtn").className = "hidden";
+    $("#addInvBtn").addClass('hidden');
+
   }
   if(hasAdmin) {
-    document.getElementById("addInvBtn").className = "btn btn-primary btn-lg";
+    //document.getElementById("addInvBtn").className = "btn btn-primary btn-lg pull-right";
+    $("#addInvBtn").removeClass('hidden');
   }
-
 }
+
 
 //    Performs behaviors depending on site mode.
 //    Site modes determine the context of the webapp, determining what is rendered and how.
@@ -61,7 +65,7 @@ function modeManager(){
   else if(siteMode == "loading") {
     getUserInfo();
     doesHaveAdmin();
-    getInv();
+    getInv(filterList);
   }
 }
 
@@ -108,10 +112,26 @@ function getUserInfo() {
 
 }
 
+function setFilter(obj) {
+  clearFilter();
+  var filter = obj.getAttribute("invTag");
+  filterList = filter;
+  getInv(filterList);
+}
+function clearFilter() {
+  filterList = "";
+}
+function addFilter(obj) {
+  
+  filterList += "+"+obj.getAttribute("invTag");
+  getInv(filterList);
+}
+
 // Get Inventory using filter.
-function getInv() {
+function getInv(filterList) {
   console.log("INV: requesting inventory");
-  callAPI('api/inv', 'GET', '', function(){
+  var input = "token="+token+"&filter="+filterList;
+  callAPI('api/inv', 'GET', input, function(){
     if (this.readyState !== 4) return;
     if (this.status !== 200) return;
     var inv = this.responseText;
@@ -122,6 +142,11 @@ function getInv() {
       gridRenderInv();
     }
   });
+}
+
+// Encodes Strings for URL transmission.
+function prepString(input){
+  return encodeURIComponent(input);
 }
 
 // Handles API calls.

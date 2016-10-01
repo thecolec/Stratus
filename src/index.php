@@ -42,8 +42,8 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="navShop">Shop</a>
             <ul class="dropdown-menu" id="shopMenu">
-              <li><a onclick="" href="#">Juices</a></li>
-              <li><a onclick="" href="#">Hardware</a></li>
+              <li><a onclick="setFilter(this);" href="#" invTag="juice">Juices</a></li>
+              <li><a onclick="setFilter(this);" href="#"invTag="hardware">Hardware</a></li>
             </ul>
           </li>
         </ul>
@@ -71,10 +71,10 @@
     <!-- TODO: Implement an options menu -->
     <?php require_once('options.php'); ?>
     <?php require_once('addinv.php'); ?>
+    <?php require_once('itemCard.php') ?>
   </div>
-  <div class="container-fluid pull-right" id="overlay">
-
-  <button class="btn btn-primary btn-lg hidden" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+  <div class="container-fluid" id="overlay">
+    <button class="btn btn-primary btn-lg pull-right hidden" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
   </div>
   <!-- Essential JS from local -->
   <script>

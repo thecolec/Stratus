@@ -1,4 +1,5 @@
 function checkToken() {
+  //TODO:30 Validate that user exists, prior to granting api access.
   //DONE:0 Verify Token on login. Clear token if invalid.
   console.log("TOKEN-VER: Checking Token");
   if(token==='' || token === NULL){
@@ -14,7 +15,7 @@ function checkToken() {
     }
   }
   if (siteMode=="pending") {
-    //DONE:10 Migrate away from UID, identify users using Token alone.
+    //DONE:20 Migrate away from UID, identify users using Token alone.
     console.log("TOKEN-VER: Verifying TOKEN");
     callAPI('api/auth/tokenVer', 'POST', "token="+token, function(){
       if (this.readyState!==4) return;

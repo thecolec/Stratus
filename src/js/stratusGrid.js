@@ -10,7 +10,7 @@ function gridRenderInv() {
   console.log("GRID: Rendering INV");
   clearGrid();
   for (x=0; x < Object.keys(invJson).length; x++){
-    contentGrid.innerHTML += `<div class="col-sm-2">
+    contentGrid.innerHTML += `<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                                 <div class="panel panel-default" id="itemPanel-${invJson[x].itemCode}" onclick="alert('You Clicked on ${invJson[x].name}');">
                                   <div class="panel-heading">
                                     <h3 class="panel-title" >
@@ -29,7 +29,7 @@ function gridRenderInv() {
 function gridRenderInvTEST() {
   clearGrid();
   for (x=0; x < 100; x++){
-    contentGrid.innerHTML += `<div class="col-sm-2">
+    contentGrid.innerHTML += `<div class="col-*-2">
                                 <div class="panel panel-default" id="itemPanel-${invJson[0].itemCode}" onclick="alert('You Clicked on ${invJson[0].name}');">
                                   <div class="panel-heading">
                                     <h3 class="panel-title" >

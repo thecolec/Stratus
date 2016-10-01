@@ -4,9 +4,9 @@ require_once 'database.php';
 require_once 'userprocessor.php';
 class MyAPI extends API {
 
-//TODO: create system for database maintenance.
-//TODO: implement per-request token check.
-//TODO: JWT?
+//TODO:60 create system for database maintenance.
+//TODO:40 implement per-request token check.
+//TODO:50 JWT?
 //from here down are endpoint definitions
 //$endpoint/$verb/$args/$args
 
@@ -14,7 +14,7 @@ class MyAPI extends API {
   protected function inv() {
     $db = new dbHost();
     if ($this->method == 'GET') {
-      return $db -> getInv();
+      return $db -> getInv($this->request);
     }
     if ($this->method == 'POST') {
       if ($this->mode == "add") {
@@ -54,8 +54,8 @@ class MyAPI extends API {
       return "Error: Invalid Request";
     }
   }
-// TODO:0 Add input parser to prevent injection attacks.
-// TODO:30 Improve token system to lock token to a specific session.
+// TODO:20 Add input parser to prevent injection attacks.
+// TODO:100 Improve token system to lock token to a specific session.
 // Information Endpoint
   protected function info() {
     $db = new dbHost();

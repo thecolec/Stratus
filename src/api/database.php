@@ -43,10 +43,30 @@ class dbHost {
 // Stratus specific functions.
 
 // Gets Inventory information
-// TODO.Add Options for filtering results.
-// TODO: Add System for parent/child PIDs
-  public function getInv() {
-    $result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
+// DONE:10 Add Options for filtering results.
+// TODO:0 Add advanced filtering.
+// TODO:10 Add System for parent/child PIDs
+  public function getInv($request) {
+    //$result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
+    $token = $request["token"];
+    $filter = $request["filter"];
+    $list = explode(",",$filter);
+    $tags = count($list);
+    $input = "SELECT * FROM `inventory` WHERE `inventory`.`inStock` = \"1\"";
+    if($filter !== "none") {
+      $filter = str_replace(' ','\', \'', $filter);
+      $filter = "'".$filter."'";
+      $input = "SELECT `inventory`.*\n"
+      . "FROM `inventory`\n"
+      . "LEFT JOIN `tagdir` ON `inventory`.`itemCode` = `tagdir`.`pid` \n"
+      . "LEFT JOIN `tags` ON `tagdir`.`tid` = `tags`.`tid` \n"
+      . "WHERE `tags`.`name` IN (".$filter.") \n"
+      . "GROUP BY `inventory`.`itemCode` \n"
+      . "HAVING COUNT(DISTINCT `tags`.`tid`) = $tags";
+    }
+
+    //$result = $this->query("SELECT * FROM `tags` WHERE `value` = \"juice\"");
+    $result = $this->query($input);
     if ($result->num_rows > 0) {
       // output data of each row
       $i = 0;
@@ -58,10 +78,12 @@ class dbHost {
     } else {
         echo "0 results";
     }
+
+
   }
 
-//TODO:10 Implement separate userInfo tables.
-//TODO:20 Unify internal UID lookup function.
+//TODO:80 Implement separate userInfo tables.
+//TODO:90 Unify internal UID lookup function.
   public function getUserInfo($request) {
     $token = $request["token"];
     $test = $this->query("SELECT `uid` FROM `tokens` WHERE `token` = \"".$token."\"");
@@ -149,6 +171,10 @@ class dbHost {
     }
   }
 
+// Maintains Clean Tag System
+public function createTags($tags) {
+
+}
 
 }
 
