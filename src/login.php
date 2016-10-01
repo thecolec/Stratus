@@ -83,4 +83,30 @@ TODO: Add failure redirect.-->
       </div>
     </div>
   </div>
+  <!-- About Stratus Modal -->
+    <div class="modal fade in" tabindex="-1" role="dialog" id="aboutStratusModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body clearfix text-center">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h1>Stratus</h1>
+            <h3>"The unsecure update!"</h3>
+            <h5>v0.5.0 beta</h5>
+            <h4>Created by Cole Cassidy</h4>
+            <h4>@theColeC</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bug Report Modal -->
+      <div class="modal fade in" tabindex="-1" role="dialog" id="reportBugModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body clearfix text-center">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4>Tell Daddy what happened:</h4>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>

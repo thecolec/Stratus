@@ -29,15 +29,21 @@ function initStratus(){
 }
 // Renders page using data stored in userJson.
 function renderStratus(){
+
   document.getElementById("navUsername").innerHTML = userJson.username;
   if(!hasAdmin) {
     //document.getElementById("addInvBtn").className = "hidden";
-    $("#addInvBtn").addClass('hidden');
+    $("#adminOverlay").addClass('hidden');
 
   }
   if(hasAdmin) {
     //document.getElementById("addInvBtn").className = "btn btn-primary btn-lg pull-right";
-    $("#addInvBtn").removeClass('hidden');
+    $("#adminOverlay").removeClass('hidden');
+  }
+  if(filterList == "none") {
+    $("clearFilterBtn").addClass('hidden');
+  } else {
+    $("clearFilterBtn").removeClass('hidden');
   }
 }
 
@@ -122,9 +128,18 @@ function clearFilter() {
   filterList = "";
 }
 function addFilter(obj) {
-  
+
   filterList += "+"+obj.getAttribute("invTag");
   getInv(filterList);
+}
+
+function viewItemCard(x){
+  $("#itemCard").modal('show');
+  document.getElementById("itemCardName").innerHTML = invJson[x].name;
+  document.getElementById("itemCardDescription").innerHTML = invJson[x].description;
+  document.getElementById("itemCardPrice").innerHTML = "$"+invJson[x].price;
+  document.getElementById("itemCardCode").innerHTML = "PID: "+invJson[x].itemCode;
+  console.log(invJson[x].itemCode);
 }
 
 // Get Inventory using filter.

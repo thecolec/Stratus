@@ -12,6 +12,7 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/stratusStore.css" >
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <!-- Optional theme -->
 <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"-->
 
@@ -22,7 +23,7 @@
 
 </head>
 
-<body onload="initStratus()">
+<body onload="initStratus()" style="font-family:Raleway;">
   <!-- Main Container NEVER REMOVE THIS -->
   <div class="container">
 
@@ -52,9 +53,9 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="navUsername"></a>
                 <ul class="dropdown-menu" id="userMenu">
-                  <!-- <li><a href="#">Options</a></li>
-                  <li><a href="#">Help</a></li>
-                  <li role="separator" class="divider"></li> -->
+                  <li><a href="#" data-toggle="modal" data-target="#aboutStratusModal">About</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#reportBugModal">Report a Bug</a></li>
+                  <li role="separator" class="divider"></li>
                   <li><a onclick="logout();" href="#">logout</a></li>
                 </ul>
               </li>
@@ -74,7 +75,19 @@
     <?php require_once('itemCard.php') ?>
   </div>
   <div class="container-fluid" id="overlay">
-    <button class="btn btn-primary btn-lg pull-right hidden" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+    <div class="panel panel-default pull-left">
+      <div class="panel-body">
+        <button class="btn btn-success btn-lg" type="button" id="addFilterBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+        <button class="btn btn-danger btn-lg hidden " type="button" id="clearFilterBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+      </div>
+    </div>
+    <div class="panel panel-default pull-right hidden" id="adminOverlay">
+      <div class="panel-body">
+        <button class="btn btn-danger btn-lg" type="button" id="searchInv"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+        <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-cog" aria-hidden="true" ></span></button>
+      </div>
+    </div>
+
   </div>
   <!-- Essential JS from local -->
   <script>
