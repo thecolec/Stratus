@@ -34,16 +34,18 @@
 <body onload="initStratus()" style="font-family:Raleway;">
   <!-- Main Container NEVER REMOVE THIS -->
   <div class="container">
-
+      <!-- Navbar area -->
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
+          <!-- Collapsable Menu shown on mobile -->
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#stratusNav" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Stratus</a>
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- Brand Name TODO: Make more content Conf file dependent.-->
+          <a class="navbar-brand" href="/index.php">Stratus</a>
         </div>
         <div class="container-fluid">
         <div class="collapse navbar-collapse" id="stratusNav">
@@ -77,8 +79,7 @@
     <!-- Add button, only visable to admins, communicates via secured API-->
 
     <!-- Groundwork for an options framework.-->
-    <!-- TODO: Implement an options menu -->
-    <?php require_once('options.php'); ?>
+    <!-- TODO: Complete options menu. -->
     <?php require_once('addinv.php'); ?>
     <?php require_once('itemCard.php') ?>
   </div>
@@ -91,8 +92,8 @@
     </div>
     <div class="panel panel-default pull-right hidden" id="adminOverlay">
       <div class="panel-body">
-        <button class="btn btn-danger btn-lg" type="button" id="searchInv"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-        <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-cog" aria-hidden="true" ></span></button>
+        <button class="btn btn-danger btn-lg" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+        <a class="btn btn-primary btn-lg" type="button" id="searchInv" href="/options.php"><span class="glyphicon glyphicon-cog" aria-hidden="true" ></span></a>
       </div>
     </div>
 
