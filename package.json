@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "bower install bootstrap && grunt"
+    "postinstall": "bower install bootstrap && grunt test"
   },
   "repository": {
     "type": "git",

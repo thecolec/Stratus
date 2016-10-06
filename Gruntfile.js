@@ -8,23 +8,13 @@ module.exports = function(grunt) {
           collapseWhitespace: true
         },
         files: {
-          'dist/index.html': 'src/index.html',    // 'destination': 'source'
+          'dist/index.php': 'src/index.php',    // 'destination': 'source'
+          'dist/login.php': 'src/login.php',
+          'dist/options.php': 'src/options.php'
         }
       },
-      test: {
-        files: {
-          'test/index.html': 'src/index.html',
-        }
-      }
     },
     copy: {
-      main: {
-        files: [
-          {expand: true, cwd: 'bower_components/bootstrap/dist/', src: ['**'], dest: 'res/'},
-          {expand: true, cwd: 'bower_components/jquery/dist/', src: ['**'], dest:'res/js/'},
-          {expand: true, cwd: 'res/', src: ['**'], dest:'test/'},
-        ],
-      },
       release: {
         files: [
           {expand: true, cwd: 'bower_components/bootstrap/dist/', src: ['**'], dest: 'dist/'},
@@ -35,8 +25,9 @@ module.exports = function(grunt) {
       },
       test: {
         files: [
-
-          {expand: true, cwd: 'res/', src: ['**'], dest:'test/'}
+          {expand: true, cwd: 'bower_components/bootstrap/dist/', src: ['**'], dest: 'test/'},
+          {expand: true, cwd: 'src/', src: ['**'], dest: 'test/'},
+          {expand: true, cwd: 'bower_components/jquery/dist/', src: ['**'], dest:'test/js/'},
         ],
       },
     },
@@ -46,7 +37,7 @@ module.exports = function(grunt) {
       },
       src: {
         files: ['src/**'],
-        tasks: ['publish'],
+        tasks: ['test'],
       },
     }
   });
@@ -55,11 +46,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
 // Register Tasks
-  grunt.registerTask('default', ['htmlmin', 'copy']);
-  grunt.registerTask('publish', ['copy:release','htmlmin:release']);
-  grunt.registerTask('test', ['htmlmin:test', 'copy:test']);
-  grunt.registerTask('devmode', ['default',]);
+  // builds project, and configures dev environment.
+  grunt.registerTask('setup', ['copy', 'htmlmin']);
+  // builds release candidate to /dist
+  grunt.registerTask('release', ['copy:release','htmlmin:release']);
+  // builds test version to /test
+  grunt.registerTask('test', ['copy:test']);
+  // starts watch for rapid repeat testing
+  grunt.registerTask('devmode', ['watch']);
 
 };
