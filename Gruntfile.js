@@ -39,6 +39,17 @@ module.exports = function(grunt) {
         files: ['src/**'],
         tasks: ['test'],
       },
+    },
+    version: {
+      project: {
+        src: ['package.json',]
+      },
+      projectPhp: {
+        options: {
+          prefix: '[^\\-]Version[\\s]*[:=]*[\\s]*'
+        },
+        src: ['src/index.php', 'src/login.php']
+      }
     }
   });
 
@@ -47,14 +58,27 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-version');
 
 // Register Tasks
   // builds project, and configures dev environment.
   grunt.registerTask('setup', ['copy', 'htmlmin']);
-  // builds release candidate to /dist
-  grunt.registerTask('release', ['copy:release','htmlmin:release']);
+  
+  // builds major release to /dist
+  grunt.registerTask('majorrelease', ['version::major','copy:release','htmlmin:release']);
+
+  // builds minor release to /dist
+  grunt.registerTask('minorrelease', ['version::minor','copy:release','htmlmin:release']);
+
+  // builds patch release to /dist
+  grunt.registerTask('patchrelease', ['version::patch','copy:release','htmlmin:release']);
+
+  // builds test release to /dist
+  grunt.registerTask('betarelease', ['version::prerelease','copy:release','htmlmin:release']);
+
   // builds test version to /test
-  grunt.registerTask('test', ['copy:test']);
+  grunt.registerTask('test', ['version::prerelease','copy:test']);
+
   // starts watch for rapid repeat testing
   grunt.registerTask('devmode', ['watch']);
 
