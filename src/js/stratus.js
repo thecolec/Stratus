@@ -135,22 +135,23 @@ function addFilter(obj) {
 
 function viewItemCard(x){
   $("#itemCard").modal('show');
-  document.getElementById("itemCardName").innerHTML = invJson[x].name;
+  document.getElementById("itemCardImg").src = "img/"+invJson[x].itemCode+".png";
+  var palette = genPalette(document.getElementById("itemCardImg"));
+  document.getElementById("itemCardName").innerHTML = palette['Vibrant'];
+  document.getElementById("itemCardName").style.color = invJson[x].name;
   document.getElementById("itemCardDescription").innerHTML = invJson[x].description;
   document.getElementById("itemCardPrice").innerHTML = "$"+invJson[x].price;
   document.getElementById("itemCardCode").innerHTML = "PID: "+invJson[x].itemCode;
-  document.getElementById("itemCardImg").src = "img/juice.png";
-  genPalette(document.getElementById("itemCardImg"));
   console.log(invJson[x].itemCode);
 }
 
 function genPalette(obj) {
       var vibrant = new Vibrant(obj);
       var swatches = vibrant.swatches();
-      for (var swatch in swatches)
-          if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-              console.log(swatch, swatches[swatch].getHex());
-
+      for (var swatch in swatches) {
+          if (swatches.hasOwnProperty(swatch) && swatches[swatch]) console.log(swatch, swatches[swatch].getHex());
+      }
+      return swatches;
       /*
        * Results into:
        * Vibrant #7a4426
