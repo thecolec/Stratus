@@ -134,7 +134,7 @@ function addFilter(obj) {
 }
 
 function viewItemCard(x){
-  document.getElementById("itemCardImg").setAttribute("src", "img/"+invJson[x].itemCode+".png");
+  document.getElementById("itemCardImg").src = "img/"+invJson[x].itemCode+".png";
   document.getElementById("itemCardName").innerHTML = invJson[x].name;
   document.getElementById("itemCardDescription").innerHTML = invJson[x].description;
   document.getElementById("itemCardPrice").innerHTML = "$"+invJson[x].price;
