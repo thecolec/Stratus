@@ -1,6 +1,6 @@
 {
   "name": "stratus",
-  "version": "0.2.1-6",
+  "version": "0.2.1-8",
   "description": "A webshop platform.",
   "main": "index.js",
   "scripts": {
