@@ -1,7 +1,7 @@
 <div class="container">
 <div class="modal fade in" tabindex="-1" role="dialog" id="itemCard">
 <div class="modal-dialog" role="document">
-<div class="modal-content">
+<div class="modal-content" id="itemCardContent">
 <div class="modal-body clearfix">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 <div class="container-fluid">
