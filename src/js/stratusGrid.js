@@ -17,7 +17,7 @@ function gridRenderInv() {
                                       ${invJson[x].name}
                                     </h3>
                                   </div>
-                                  <img class="img-responsive center-block" src="img/${invJson[x].itemCode}.png" onerror="this.src=\'img/juice.jpg\'"/>
+                                  <img class="img-responsive center-block" src="img/${invJson[x].itemCode}.png" onerror="this.src=\'img/juice.png\'"/>
                                   <div class="panel-body" id="description">
                                     Content Goes Here
                                   </div>
