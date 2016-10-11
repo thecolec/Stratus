@@ -7,7 +7,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-4">
-      <img src="img/juice.png" class="img-responsive img-thumbnail center-block" id="itemCardImg"/>
+      <img class="img-responsive img-thumbnail center-block" id="itemCardImg" onerror="this.src='img/juice.png'"/>
 
     </div>
     <div class="col-xs-12 col-sm-8">

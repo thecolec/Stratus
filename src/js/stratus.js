@@ -139,6 +139,7 @@ function viewItemCard(x){
   document.getElementById("itemCardDescription").innerHTML = invJson[x].description;
   document.getElementById("itemCardPrice").innerHTML = "$"+invJson[x].price;
   document.getElementById("itemCardCode").innerHTML = "PID: "+invJson[x].itemCode;
+  document.getElementById("itemCardImg").src = "img/juice.png";
   genPalette(document.getElementById("itemCardImg"));
   console.log(invJson[x].itemCode);
 }
