@@ -145,7 +145,7 @@ function viewItemCard(x){
 }
 
 function genPalette(obj) {
-      var vibrant = new Vibrant(obj);
+      var vibrant = new Vibrant(obj, 64, 0);
       var swatches = vibrant.swatches();
       for (var swatch in swatches) {
           if (swatches.hasOwnProperty(swatch) && swatches[swatch]) console.log(swatch, swatches[swatch].getHex());
