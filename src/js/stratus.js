@@ -142,6 +142,24 @@ function viewItemCard(x){
   console.log(invJson[x].itemCode);
 }
 
+function genPalette(obj) {
+      var vibrant = new Vibrant(obj);
+      var swatches = vibrant.swatches();
+      for (var swatch in swatches)
+          if (swatches.hasOwnProperty(swatch) && swatches[swatch])
+              console.log(swatch, swatches[swatch].getHex());
+
+      /*
+       * Results into:
+       * Vibrant #7a4426
+       * Muted #7b9eae
+       * DarkVibrant #348945
+       * DarkMuted #141414
+       * LightVibrant #f3ccb4
+       */
+
+}
+
 // Get Inventory using filter.
 function getInv(filterList) {
   console.log("INV: requesting inventory");

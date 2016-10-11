@@ -7,7 +7,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-4">
-      <img src="img/juice.png" class="img-responsive img-thumbnail center-block"/>
+      <img src="img/juice.png" class="img-responsive img-thumbnail center-block" onload="genPalette(this);"/>
 
     </div>
     <div class="col-xs-12 col-sm-8">
