@@ -134,13 +134,13 @@ function addFilter(obj) {
 }
 
 function viewItemCard(x){
+  $("#itemCard").modal('show');
   document.getElementById("itemCardImg").src = "img/"+invJson[x].itemCode+".png";
   document.getElementById("itemCardName").innerHTML = invJson[x].name;
   document.getElementById("itemCardDescription").innerHTML = invJson[x].description;
   document.getElementById("itemCardPrice").innerHTML = "$"+invJson[x].price;
   document.getElementById("itemCardCode").innerHTML = "PID: "+invJson[x].itemCode;
   var palette = genPalette(document.getElementById("itemCardImg"));
-  $("#itemCard").modal('show');
   console.log(invJson[x].itemCode);
 }
 
