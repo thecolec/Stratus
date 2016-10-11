@@ -150,9 +150,9 @@ function genPalette(obj) {
       for (var swatch in swatches) {
           if (swatches.hasOwnProperty(swatch) && swatches[swatch]) console.log(swatch, swatches[swatch].getHex());
       }
-      document.getElementById("itemCardName").style.color = palette['Vibrant'].getHex();
-      document.getElementById("itemCardDescription").style.color = palette['DarkMuted'].getBodyTextColor();
-      document.getElementById("itemCardContent").style.backgroundColor = palette['DarkMuted'].getHex();
+      document.getElementById("itemCardName").style.color = swatches['Vibrant'].getHex();
+      document.getElementById("itemCardDescription").style.color = swatches['DarkMuted'].getBodyTextColor();
+      document.getElementById("itemCardContent").style.backgroundColor = swatches['DarkMuted'].getHex();
       return swatches;
       /*
        * Results into:
