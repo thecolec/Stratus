@@ -109,8 +109,9 @@
   <script src="js/stratusGrid.js"></script>         <!--Stratus grid system         -->
   <script src="js/stratusValidate.js"></script>     <!--Stratus form validation     -->
   <script src="js/stratusAuth.js"></script>         <!--Stratus user authentication -->
+  <script src="js/vibrant.js"></script>             <!--Vibrant image swatch thingy -->
 
 
-  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  <script>document.write('//<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>
