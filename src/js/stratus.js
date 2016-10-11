@@ -138,12 +138,12 @@ function viewItemCard(x){
   document.getElementById("itemCardImg").setAttribute("src", "img/"+invJson[x].itemCode+".png");
   var palette = genPalette(document.getElementById("itemCardImg"));
   document.getElementById("itemCardName").innerHTML = invJson[x].name;
-  document.getElementById("itemCardName").style.color = palette['Muted'].getTitleTextColor();
+  document.getElementById("itemCardName").style.color = palette['Vibrant'].getTitleTextColor();
   document.getElementById("itemCardDescription").innerHTML = invJson[x].description;
-  document.getElementById("itemCardDescription").style.color = palette['Muted'].getBodyTextColor();
+  document.getElementById("itemCardDescription").style.color = palette['DarkMuted'].getBodyTextColor();
   document.getElementById("itemCardPrice").innerHTML = "$"+invJson[x].price;
   document.getElementById("itemCardCode").innerHTML = "PID: "+invJson[x].itemCode;
-  document.getElementById("itemCardContent").style.backgroundColor = palette['Muted'].getHex();
+  document.getElementById("itemCardContent").style.backgroundColor = palette['DarkMuted'].getHex();
   console.log(invJson[x].itemCode);
 }
 
