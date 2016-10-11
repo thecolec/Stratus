@@ -7,7 +7,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-4">
-      <img class="img-responsive img-thumbnail center-block" id="itemCardImg" onerror="this.src='img/juice.png'"/>
+      <img class="img-responsive img-thumbnail center-block" id="itemCardImg" onerror="this.src='img/juice.png'" onload="genPalette(this);"/>
 
     </div>
     <div class="col-xs-12 col-sm-8">
