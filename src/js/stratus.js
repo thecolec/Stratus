@@ -138,8 +138,9 @@ function viewItemCard(x){
   document.getElementById("itemCardImg").setAttribute("src", "img/"+invJson[x].itemCode+".png");
   var palette = genPalette(document.getElementById("itemCardImg"));
   document.getElementById("itemCardName").innerHTML = invJson[x].name;
-  document.getElementById("itemCardName").style.color = palette['Vibrant'].getHex();
+  document.getElementById("itemCardName").style.color = palette['Muted'].getTitleTextColor();
   document.getElementById("itemCardDescription").innerHTML = invJson[x].description;
+  document.getElementById("itemCardDescription").style.color = palette['Muted'].getBodyTextColor();
   document.getElementById("itemCardPrice").innerHTML = "$"+invJson[x].price;
   document.getElementById("itemCardCode").innerHTML = "PID: "+invJson[x].itemCode;
   document.getElementById("itemCardContent").style.backgroundColor = palette['Muted'].getHex();
