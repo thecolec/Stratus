@@ -63,7 +63,7 @@ module.exports = function(grunt) {
 // Register Tasks
   // builds project, and configures dev environment.
   grunt.registerTask('setup', ['copy', 'htmlmin']);
-  
+
   // builds major release to /dist
   grunt.registerTask('majorrelease', ['version::major','copy:release','htmlmin:release']);
 
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
   grunt.registerTask('betarelease', ['version::prerelease','copy:release','htmlmin:release']);
 
   // builds test version to /test
-  grunt.registerTask('test', ['version::prerelease','copy:test']);
+  grunt.registerTask('test', ['version::prerelease','copy']);
 
   // starts watch for rapid repeat testing
   grunt.registerTask('devmode', ['watch']);
