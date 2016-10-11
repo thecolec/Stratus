@@ -3,6 +3,7 @@
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-body clearfix">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-4">
