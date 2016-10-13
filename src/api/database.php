@@ -142,7 +142,7 @@ class dbHost {
     $test = $this->query("SELECT `uid`, `token` FROM `tokens` WHERE `token` = \"".$token."\"");
     if($test->num_rows > 0){
       while($row = $test->fetch_assoc()) {
-        return $row['uid'];
+        return $row["uid"];
       }
     } else {
       return "false";
