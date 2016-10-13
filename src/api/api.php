@@ -64,6 +64,9 @@ class MyAPI extends API {
       if($this->mode == "username"){
         return $db->getUserInfo($this->request);
       }
+      if($this->mode == "tags") {
+        return $db->getTagList();
+      }
     }
   }
 

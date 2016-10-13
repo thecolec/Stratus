@@ -98,6 +98,15 @@ class dbHost {
     }
   }
 
+  public function getTagList() {
+    $result = $this->query("SELECT DISTINCT(name) AS name FROM tags");
+    $rows = array();
+    while($row = $result->fetch_assoc()) {
+      $rows[]= $row;
+    }
+    return json_encode($rows);
+  }
+
 // Authorization Related Functions
 
 // Gets required verification code.
