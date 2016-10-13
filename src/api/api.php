@@ -19,7 +19,7 @@ class MyAPI extends API {
     }
     if ($this->method == 'POST') {
       if ($this->mode == "add") {
-        printf("Add function called");
+        if($this->authlvl < 2) return "Unauthorized";
         $db->addInv($this->request);
       }
     }

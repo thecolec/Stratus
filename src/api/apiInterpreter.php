@@ -88,7 +88,6 @@ abstract class API
         $this->token = $input['token'];
         $db = new dbHost();
         $auth = $db->verToken($this->token);
-        echo $auth;
         if($auth != "false") {
           $this->authlvl = 1;
           $this->uid = $auth;

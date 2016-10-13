@@ -48,7 +48,6 @@ class dbHost {
 // TODO:10 Add System for parent/child PIDs
   public function getInv($request) {
     //$result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
-    $token = $request["token"];
     $filter = $request["filter"];
     $list = explode(",",$filter);
     $tags = count($list);
@@ -163,11 +162,7 @@ class dbHost {
   }
   public function addInv($request) {
     $input = "INSERT INTO inventory (name, inStock, description, onSale) VALUES ('".$request["name"]."', '".$request["stock"]."', '".$request["description"]."', '".$request["sale"]."')";
-    if($this->verAdmin($request)) {
-      $this->query($input);
-    } else {
-      return "ERROR: Not Authorized";
-    }
+    $this->query($input);
   }
 
 // Maintains Clean Tag System
