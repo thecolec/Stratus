@@ -145,14 +145,14 @@ function viewItemCard(x){
 }
 
 function genPalette(obj) {
-      var vibrant = new Vibrant(obj, 64, 3);
+      var vibrant = new Vibrant(obj, 32, 1);
       var swatches = vibrant.swatches();
       for (var swatch in swatches) {
           if (swatches.hasOwnProperty(swatch) && swatches[swatch]) console.log(swatch, swatches[swatch].getHex());
       }
       document.getElementById("itemCardName").style.color = swatches['Vibrant'].getHex();
-      document.getElementById("itemCardDescription").style.color = swatches['DarkMuted'].getBodyTextColor();
-      document.getElementById("itemCardContent").style.backgroundColor = swatches['DarkMuted'].getHex();
+      document.getElementById("itemCardDescription").style.color = swatches['Muted'].getBodyTextColor();
+      document.getElementById("itemCardContent").style.backgroundColor = swatches['Muted'].getHex();
       return swatches;
       /*
        * Results into:
