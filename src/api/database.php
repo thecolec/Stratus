@@ -142,7 +142,7 @@ class dbHost {
     $test = $this->query("SELECT `uid`, `token` FROM `tokens` WHERE `token` = \"".$token."\"");
     if($test->num_rows > 0){
       while($row = $test->fetch_assoc()) {
-        return $row["uid"];
+        return $row['uid'];
       }
     } else {
       return "false";
@@ -150,6 +150,8 @@ class dbHost {
   }
   public function verAdmin($uid){
     $testb = $this->query("SELECT `uid` FROM `admins` WHERE `uid` = \"".$uid."\"");
+    echo "Searching for admin ";
+    echo $uid;
     if($testb->num_rows > 0) return 1;
     return 0;
   }

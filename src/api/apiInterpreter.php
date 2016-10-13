@@ -91,7 +91,9 @@ abstract class API
         if($auth != "false") {
           $this->authlvl = 1;
           $this->uid = $auth;
+          echo $authlvl;
           $this->authlvl += $db->verAdmin($auth);
+          echo $authlvl;
         }
       }
     }
