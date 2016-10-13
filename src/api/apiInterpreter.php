@@ -48,7 +48,7 @@ abstract class API
 
     //finds endpoint and asks it to respond.
     public function processAPI() {
-        $this->authToken($this->args);
+        $this->authToken($this->request);
         if (method_exists($this, $this->endpoint)) {
             return $this->response($this->{$this->endpoint}($this->args));
         }
@@ -84,7 +84,7 @@ abstract class API
     }
     // Validates Token
     private function authToken($input) {
-      if(isset($input['token'])){
+      if(isset($input["token"])){
         $this->token = $input['token'];
         $db = new dbHost();
         $auth = $db->verToken($this->token);
