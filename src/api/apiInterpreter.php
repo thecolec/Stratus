@@ -48,6 +48,7 @@ abstract class API
 
     //finds endpoint and asks it to respond.
     public function processAPI() {
+        authToken($this->args);
         if (method_exists($this, $this->endpoint)) {
             return $this->response($this->{$this->endpoint}($this->args));
         }
