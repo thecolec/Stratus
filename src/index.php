@@ -109,6 +109,7 @@
   <script src="js/stratusGrid.js"></script>         <!--Stratus grid system         -->
   <script src="js/stratusValidate.js"></script>     <!--Stratus form validation     -->
   <script src="js/stratusAuth.js"></script>         <!--Stratus user authentication -->
+  <script src="js/stratusAdminInv.js"></script>     <!--Stratus Admin Functions     -->
   <script src="js/Vibrant.js"></script>             <!--Vibrant image swatch thingy -->
 
 
