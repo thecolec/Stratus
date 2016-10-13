@@ -47,7 +47,7 @@ class MyAPI extends API {
         }
       // Token Verification Mode
       } else if($this->mode == "tokenVer") {
-          return $db->verToken($this->request["token"]);
+          return $db->verToken($this->request['token']);
       } else if($this->mode == "adminchk") {
           return $db->verAdmin($this->request["uid"]);
       }
