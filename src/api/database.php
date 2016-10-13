@@ -139,30 +139,21 @@ class dbHost {
   public function regToken($uid, $token){
     $this -> query("INSERT INTO tokens (uid, token) VALUES ('".$uid."', '".$token."') ON DUPLICATE KEY UPDATE token = values(token)");
   }
-  public function verToken($request){
-    $token = $request['token'];
+  public function verToken($token){
     $test = $this->query("SELECT `uid`, `token` FROM `tokens` WHERE `token` = \"".$token."\"");
     if($test->num_rows > 0){
-      while($row = $test->fetch_row()) {
-        return $row[0];
+      while($row = $test->fetch_assoc()) {
+        return $row['uid'];
       }
     } else {
       return "false";
     }
   }
-  public function verAdmin($request){
-    $token = $request['token'];
-    $test = $this->query("SELECT `uid` FROM `tokens` WHERE `token` = \"".$token."\"");
-    if($test->num_rows > 0){
-      while($row=$test->fetch_row()) {
-        $uid = $row[0];
-      }
-      $testb = $this->query("SELECT `uid` FROM `admins` WHERE `uid` = \"".$uid."\"");
-      if($testb->num_rows > 0) return "true";
-      return "false";
-    } else {
-      return "false";
-    }
+  public function verAdmin($uid){
+    $testb = $this->query("SELECT `uid` FROM `admins` WHERE `uid` = \"".$uid."\"");
+    if($testb->num_rows > 0) return "true";
+    return "false";
+
   }
 
 // Creates user in database.

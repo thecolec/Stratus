@@ -7,8 +7,11 @@ abstract class API
     protected $mode = '';
     protected $args = Array();
     protected $file = Null;
+    protected $authlvl = '';
+    protected $token = '';
+    protected $uid = '';
     public function __construct($request) {
-        
+
         // Seperate the request into different vars
         $this->args = explode('/', rtrim($request, '/'));
         $this->endpoint = array_shift($this->args);
@@ -76,6 +79,19 @@ abstract class API
             500 => 'Internal Server Error',
         );
         return ($status[$code])?$status[$code]:$status[500];
+    }
+    // Validates Token
+    private function authToken($input) {
+      if(isset($input['token'])){
+        $this->token = $input['token'];
+        $db = new dbHost();
+        $auth = $db->verToken($this->token);
+
+      } else {
+        $this->authlvl = 0;
+      }
+
+
     }
 }
 
