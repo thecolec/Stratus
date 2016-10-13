@@ -7,7 +7,7 @@ abstract class API
     protected $mode = '';
     protected $args = Array();
     protected $file = Null;
-    protected $authlvl = '';
+    protected $authlvl = 0;
     protected $token = '';
     protected $uid = '';
     public function __construct($request) {
@@ -74,6 +74,7 @@ abstract class API
     private function requestStatus($code) {
         $status = array(
             200 => 'OK',
+            401 => 'Unauthorized',
             404 => 'Not Found',
             405 => 'Method Not Allowed',
             500 => 'Internal Server Error',
@@ -86,12 +87,12 @@ abstract class API
         $this->token = $input['token'];
         $db = new dbHost();
         $auth = $db->verToken($this->token);
-
-      } else {
-        $this->authlvl = 0;
+        if($auth != "false") {
+          $this->authlvl = 1;
+          $this->uid = $auth;
+          $this->authlvl += $db->verAdmin($auth);
+        }
       }
-
-
     }
 }
 

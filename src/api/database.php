@@ -151,9 +151,8 @@ class dbHost {
   }
   public function verAdmin($uid){
     $testb = $this->query("SELECT `uid` FROM `admins` WHERE `uid` = \"".$uid."\"");
-    if($testb->num_rows > 0) return "true";
-    return "false";
-
+    if($testb->num_rows > 0) return 1;
+    return 0;
   }
 
 // Creates user in database.
