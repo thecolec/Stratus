@@ -94,6 +94,7 @@ abstract class API
           $this->authlvl += $db->verAdmin($auth);
         }
       }
+      echo "Authlevel"+$authlvl;
     }
 }
 
