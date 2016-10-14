@@ -29,7 +29,6 @@ function invAdd() {
   var stock = document.getElementById("invAddCount").value;
   var price = document.getElementById("invAddPrice").value;
   var tags = document.getElementById("invAddTags").value;
-  console.log("ADD-INV: "+name+" "+desc+" "+stock+" "+sale);
   document.getElementById("invAddName").value = "";
   document.getElementById("invAddDesc").value = "";
   document.getElementById("invAddAvail").value = "";
@@ -43,7 +42,7 @@ function invAdd() {
   input += "&sale="+list;
   input += "&stock="+stock;
   input += "&price="+price;
-  input += "&tags="+tags;
+  input += "&tags=all, "+tags;
   input += "&token="+token;
 
 

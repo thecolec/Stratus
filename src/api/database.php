@@ -51,7 +51,7 @@ class dbHost {
     $filter = $request["filter"];
     $list = explode(" ",$filter);
     $tags = count($list);
-    $input = "SELECT * FROM `inventory` WHERE `inventory`.`inStock` = \"1\"";
+    $input = "SELECT * FROM `inventory` WHERE `inventory`.`onSale` = \"1\"";
     if($filter !== "none") {
       $filter = str_replace(' ','\', \'', $filter);
       $filter = "'".$filter."'";
@@ -77,10 +77,7 @@ class dbHost {
     } else {
         echo "0 results";
     }
-
-
   }
-
 //TODO:60 Implement separate userInfo tables.
 //TODO:70 Unify internal UID lookup function.
   public function getUserInfo($request) {
@@ -95,6 +92,17 @@ class dbHost {
         return json_encode($row);
       }
     }
+  }
+
+  public function getPidByName($name) {
+    $r = $this->query("SELECT `itemCode` FROM `inventory` WHERE `name` = \"{$name}\"");
+    if($r->num_rows > 0){
+      while($row=$r->fetch_assoc()){
+        $pid = $row["itemCode"];
+      }
+      return $pid;
+    }
+
   }
 
   public function getTagList() {
@@ -161,14 +169,33 @@ class dbHost {
     $this->transaction($query);
   }
   public function addInv($request) {
-    $input = "INSERT INTO inventory (name, inStock, description, onSale) VALUES ('".$request["name"]."', '".$request["stock"]."', '".$request["description"]."', '".$request["sale"]."')";
+    $name = $request["name"];
+    $description = $request["description"];
+    $avail = $request["avail"];
+    $sale = $request["sale"];
+    $stock = $request["stock"];
+    $price = $request["price"];
+    $tags = $request["tags"];
+    $input = "INSERT INTO inventory (name, description, onSale, inStock, avail, price) VALUES ('{$name}', '{$description}', '{$sale}', '{$stock}', '{$avail}', '{$price}')";
+    //$input = "INSERT INTO inventory (name, inStock, description, onSale) VALUES ('".$request["name"]."', '".$request["stock"]."', '".$request["description"]."', '".$request["sale"]."')";
     $this->query($input);
+    $pid = $this->getPidByName($name);
+    $this->tagItem($tags, $pid);
   }
 
-// Maintains Clean Tag System
-public function createTags($tags) {
+  // Maintains Clean Tag System
+  public function tagItem($tags, $pid) {
+    $taglist = explode(", ", $tags);
+    $input = "INSERT IGNORE INTO `tags` (`tid`, `name`) VALUES (NULL, '{$taglist[0]}')";
+    $update[0] = "INSERT INTO tagdir(tid, pid) SELECT tid, \"{$pid}\" FROM tags WHERE name = \"{$taglist[0]}\"";
+    for($x=1; $x < count($taglist); $x++){
+      $input .= ", (NULL, '{$taglist[$x]}')";
+      $update[$x] = "INSERT INTO tagdir(tid, pid) SELECT tid, \"{$pid}\" FROM tags WHERE name = \"{$taglist[$x]}\"";
+    }
+    $this->query($input);
+    $this->transaction($update);
+  }
 
-}
 
 }
 
