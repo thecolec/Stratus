@@ -4,7 +4,7 @@
       Created by Cole Cassidy
       github.com/thecolec/stratus
       theColeC@gmail.com
-      Version: 0.5.0
+      Version: 0.4.1-105
 -->
 <!--__/\\\\\\\\\\\\_____/\\\________/\\\_____/\\\\\\\\\____________-->
 <!--__\/\\\////////\\\__\/\\\_______\/\\\___/\\\///////\\\_________-->
@@ -16,7 +16,6 @@
 <!--________\/\\\\\\\\\\\\/________\//\\\________\///\\\\\\\\\/____-->
 <!--_________\////////////___________\///___________\/////////_____-->
 <html lang="en">
-<?php require_once('login.php');?>
 <head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -34,7 +33,7 @@
 
 <body onload="initStratus()" style="font-family:Raleway;">
   <!-- Main Container NEVER REMOVE THIS -->
-  <div class="container">
+  <div class="container-fluid">
       <!-- Navbar area -->
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
@@ -46,7 +45,7 @@
             <span class="icon-bar"></span>
           </button>
           <!-- Brand Name TODO: Make more content Conf file dependent.-->
-          <a class="navbar-brand" href="/index.php">Stratus</a>
+          <a class="navbar-brand" onclick="getInv(filterList);">Stratus</a>
         </div>
         <div class="container-fluid">
         <div class="collapse navbar-collapse" id="stratusNav">
@@ -75,12 +74,18 @@
         </div>
       </nav>
     <!-- This holds any dynamic content in a grid -->
-    <div class="row" id="contentgrid">
+    <div class="row" id="">
+      <div class="col-xs-10 col-xs-offset-1">
+        <div class="row" id="contentgrid">
+
+        </div>
+      </div>
     </div>
     <!-- Add button, only visable to admins, communicates via secured API-->
 
     <!-- Groundwork for an options framework.-->
     <!-- TODO: Complete options menu. -->
+    <?php require_once('login.php');?>
     <?php require_once('addinv.php'); ?>
     <?php require_once('itemCard.php') ?>
   </div>
@@ -93,8 +98,8 @@
     </div>
     <div class="panel panel-default pull-right hidden" id="adminOverlay">
       <div class="panel-body">
-        <button class="btn btn-danger btn-lg" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-        <a class="btn btn-primary btn-lg" type="button" id="searchInv" onclick="gridRenderInvAdd();"><span class="glyphicon glyphicon-cog" aria-hidden="true" ></span></a>
+        <button class="btn btn-danger btn-lg" type="button" onclick="gridRenderInvAdd('invAddChild.php');" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+        <a class="btn btn-primary btn-lg" type="button" id="searchInv" onclick="gridRenderOptions();"><span class="glyphicon glyphicon-cog" aria-hidden="true" ></span></a>
       </div>
     </div>
 

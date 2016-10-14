@@ -78,6 +78,17 @@ class dbHost {
         echo "0 results";
     }
   }
+  public function getInvW($request) {
+    $input = "SELECT * FROM inventory";
+    $test = $this->query($input);
+    $rows = array();
+    if ($test->num_rows > 0) {
+      while($row=$test->fetch_assoc()) {
+        $rows[] = $row;
+      }
+      return json_encode($rows);
+    }
+  }
 //TODO:60 Implement separate userInfo tables.
 //TODO:70 Unify internal UID lookup function.
   public function getUserInfo($request) {

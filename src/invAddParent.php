@@ -1,7 +1,13 @@
+<h1>Inventory Management</h1>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active" id="addParentBtn"><a onclick="gridRenderInvAdd('invAddParent.php');">Add Parent</a></li>
+  <li role="presentation" id="addChildBtn"><a onclick="gridRenderInvAdd('invAddChild.php');">Add Child</a></li>
+  <li role="presentation" id="editItemBtn"><a onclick="gridRenderInvAdd('edit');">Edit Item</a></li>
+  <li role="presentation" id="groupEditBtn"><a onclick="gridRenderInvAdd('manage');">Manage Groups</a></li>
+</ul><br>
 <form>
-  <h1>Add Item</h1>
   <!-- is this a unique item? (is this item a parent or one-of-a-kind?) -->
-  <div class="form-group">
+  <div class="form-group hidden">
     <label for="unqTog">Is this item unique?</label>
     <select class="form-control" id="unqTog">
       <option>Yes</option>

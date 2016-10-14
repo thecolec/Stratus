@@ -183,6 +183,21 @@ function getInv(filterList) {
   });
 }
 
+function getInvW() {
+  console.log("INV: requesting inventory");
+  var input = "token="+token;
+  callAPI('api/inv/viewall', 'GET', input, function(){
+    if (this.readyState !== 4) return;
+    if (this.status !== 200) return;
+    var inv = this.responseText;
+    console.log("INV: "+inv);
+    if(inv.length>0){
+      invJson = JSON.parse(inv);
+    }
+    renderInvList();
+  });
+}
+
 // Get List of tags
 function getTags(){
   console.log("API: requesting tag list");

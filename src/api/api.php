@@ -14,6 +14,10 @@ class MyAPI extends API {
   protected function inv() {
     $db = new dbHost();
     if ($this->method == 'GET') {
+      if($this->mode == "viewall") {
+        if($this->authlvl <2) return "Unauthorized";
+        return $db->getInvW($this->request);
+      }
       if($this->authlvl < 1) return "Unauthorized";
       return $db -> getInv($this->request);
     }

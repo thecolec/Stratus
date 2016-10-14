@@ -48,20 +48,37 @@ function gridRenderInvTEST() {
 // Renders Filter Selection
 function gridRenderFilters() {
   clearGrid();
-  contentGrid.innerHTML += `<div class="col-sm-8 col-sm-offset-2">
-                              <div class="jumbotron" id="gridJumbotron">
-                              </div>
+  contentGrid.innerHTML += `<div class="jumbotron" id="gridJumbotron">
                             </div>`;
   for (x=0; x < Object.keys(responseJson).length; x++) {
-    document.getElementById("gridJumbotron").innerHTML += `${responseJson[x].name}<br>`;
+    document.getElementById("gridJumbotron").innerHTML += `<a invTag="${responseJson[x].name}" onclick="setFilter(this);">${responseJson[x].name}</a><br>`;
   }
 
 }
 
 // Renders inventory-add panel
-function gridRenderInvAdd() {
+function gridRenderInvAdd(test) {
   clearGrid();
-  callAPI("invadd.php", "GET", "", function() {
+  contentGrid.innerHTML += `<div class="col-md-7" id="imMenu"></div><div class="col-md-4 col-md-offset-1"><div class="panel panel-primary" id="invList"></div></div>`
+  callAPI(test, "GET", "", function() {
+    if (this.readyState !== 4) return;
+    if (this.status !== 200) return;
+    document.getElementById("imMenu").innerHTML = this.responseText;
+  });
+  callAPI("invList.php", "GET", "", function() {
+    if (this.readyState !== 4) return;
+    if (this.status !== 200) return;
+    document.getElementById("invList").innerHTML = this.responseText;
+    getInvW();
+  });
+
+  
+
+}
+
+function gridRenderOptions() {
+  clearGrid();
+  callAPI("options.php", "GET", "", function() {
     if (this.readyState !== 4) return;
     if (this.status !== 200) return;
     contentGrid.innerHTML = this.responseText;
