@@ -4,7 +4,7 @@
       Created by Cole Cassidy
       github.com/thecolec/stratus
       theColeC@gmail.com
-      Version: 0.4.0
+      Version: 0.3.2
 -->
 <!--__/\\\\\\\\\\\\_____/\\\________/\\\_____/\\\\\\\\\____________-->
 <!--__\/\\\////////\\\__\/\\\_______\/\\\___/\\\///////\\\_________-->
@@ -87,14 +87,14 @@
   <div class="container-fluid" id="overlay">
     <div class="panel panel-default pull-left">
       <div class="panel-body">
-        <button class="btn btn-success btn-lg" type="button" id="addFilterBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+        <button class="btn btn-success btn-lg" type="button" id="addFilterBtn" onclick="getTags();"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
         <button class="btn btn-danger btn-lg hidden " type="button" id="clearFilterBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
       </div>
     </div>
     <div class="panel panel-default pull-right hidden" id="adminOverlay">
       <div class="panel-body">
         <button class="btn btn-danger btn-lg" type="button" data-toggle="modal" data-target="#addInvModal" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-        <a class="btn btn-primary btn-lg" type="button" id="searchInv" href="/options.php"><span class="glyphicon glyphicon-cog" aria-hidden="true" ></span></a>
+        <a class="btn btn-primary btn-lg" type="button" id="searchInv" onclick="gridRenderInvAdd();"><span class="glyphicon glyphicon-cog" aria-hidden="true" ></span></a>
       </div>
     </div>
 
@@ -113,6 +113,6 @@
   <script src="js/Vibrant.js"></script>             <!--Vibrant image swatch thingy -->
 
 
-  <script>//document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>

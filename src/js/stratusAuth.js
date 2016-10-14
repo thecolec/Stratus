@@ -1,5 +1,5 @@
 function checkToken() {
-  //TODO:30 Validate that user exists, prior to granting api access.
+  //DONE:30 Validate that user exists, prior to granting api access.
   //DONE:0 Verify Token on login. Clear token if invalid.
   console.log("TOKEN-VER: Checking Token");
   if(token==='' || token === NULL){

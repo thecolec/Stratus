@@ -49,7 +49,7 @@ class dbHost {
   public function getInv($request) {
     //$result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
     $filter = $request["filter"];
-    $list = explode(",",$filter);
+    $list = explode(" ",$filter);
     $tags = count($list);
     $input = "SELECT * FROM `inventory` WHERE `inventory`.`inStock` = \"1\"";
     if($filter !== "none") {
@@ -81,8 +81,8 @@ class dbHost {
 
   }
 
-//TODO:80 Implement separate userInfo tables.
-//TODO:90 Unify internal UID lookup function.
+//TODO:60 Implement separate userInfo tables.
+//TODO:70 Unify internal UID lookup function.
   public function getUserInfo($request) {
     $token = $request["token"];
     $test = $this->query("SELECT `uid` FROM `tokens` WHERE `token` = \"".$token."\"");

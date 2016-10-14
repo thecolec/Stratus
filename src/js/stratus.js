@@ -12,6 +12,7 @@ var token = '';
 var uid = '';
 var userJson = '';
 var invJson = '';
+var responseJson = '';
 var x=0;
 var filterList = "none";
 var contentGrid = document.getElementById("contentgrid");
@@ -179,6 +180,21 @@ function getInv(filterList) {
       renderStratus();
       gridRenderInv();
     }
+  });
+}
+
+// Get List of tags
+function getTags(){
+  console.log("API: requesting tag list");
+  var input = "token="+token;
+  callAPI('api/info/tags', 'GET', input, function(){
+    if (this.readyState !== 4) return;
+    if (this.status !== 200) return;
+    var input = this.responseText;
+    console.log("API:response: "+input);
+    responseJson =JSON.parse(input);
+    renderStratus();
+    gridRenderFilters();
   });
 }
 

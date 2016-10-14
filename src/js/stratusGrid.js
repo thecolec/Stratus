@@ -45,12 +45,34 @@ function gridRenderInvTEST() {
   }
 }
 
+// Renders Filter Selection
+function gridRenderFilters() {
+  clearGrid();
+  contentGrid.innerHTML += `<div class="col-sm-8 col-sm-offset-2">
+                              <div class="jumbotron" id="gridJumbotron">
+                              </div>
+                            </div>`;
+  for (x=0; x < Object.keys(responseJson).length; x++) {
+    document.getElementById("gridJumbotron").innerHTML += `${responseJson[x].name}<br>`;
+  }
+
+}
+
+// Renders inventory-add panel
+function gridRenderInvAdd() {
+  clearGrid();
+  callAPI("invadd.php", "GET", "", function() {
+    if (this.readyState !== 4) return;
+    if (this.status !== 200) return;
+    contentGrid.innerHTML = this.responseText;
+  });
+}
+
 // Renders Error Message In grid-space
 function gridRenderMessage(message) {
   clearGrid();
   contentGrid.innerHTML ="<div class=\"col-sm-8 col-sm-offset-2\"><div class=\"alert alert-danger\" role=\"alert\">"+message+"</div></div>";
 }
-
 
 // Clears Content Grid
 function clearGrid() {
