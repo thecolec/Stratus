@@ -48,7 +48,6 @@ class dbHost {
 // TODO:10 Add System for parent/child PIDs
   public function getInv($request) {
     //$result = $this->query("SELECT * FROM `inventory` WHERE `inStock` = 1");
-    $token = $request["token"];
     $filter = $request["filter"];
     $list = explode(",",$filter);
     $tags = count($list);
@@ -139,30 +138,20 @@ class dbHost {
   public function regToken($uid, $token){
     $this -> query("INSERT INTO tokens (uid, token) VALUES ('".$uid."', '".$token."') ON DUPLICATE KEY UPDATE token = values(token)");
   }
-  public function verToken($request){
-    $token = $request['token'];
+  public function verToken($token){
     $test = $this->query("SELECT `uid`, `token` FROM `tokens` WHERE `token` = \"".$token."\"");
     if($test->num_rows > 0){
-      while($row = $test->fetch_row()) {
-        return $row[0];
+      while($row = $test->fetch_assoc()) {
+        return $row['uid'];
       }
     } else {
       return "false";
     }
   }
-  public function verAdmin($request){
-    $token = $request['token'];
-    $test = $this->query("SELECT `uid` FROM `tokens` WHERE `token` = \"".$token."\"");
-    if($test->num_rows > 0){
-      while($row=$test->fetch_row()) {
-        $uid = $row[0];
-      }
-      $testb = $this->query("SELECT `uid` FROM `admins` WHERE `uid` = \"".$uid."\"");
-      if($testb->num_rows > 0) return "true";
-      return "false";
-    } else {
-      return "false";
-    }
+  public function verAdmin($uid){
+    $testb = $this->query("SELECT `uid` FROM `admins` WHERE `uid` = \"".$uid."\"");
+    if($testb->num_rows > 0) return 1;
+    return 0;
   }
 
 // Creates user in database.
@@ -173,11 +162,7 @@ class dbHost {
   }
   public function addInv($request) {
     $input = "INSERT INTO inventory (name, inStock, description, onSale) VALUES ('".$request["name"]."', '".$request["stock"]."', '".$request["description"]."', '".$request["sale"]."')";
-    if($this->verAdmin($request)) {
-      $this->query($input);
-    } else {
-      return "ERROR: Not Authorized";
-    }
+    $this->query($input);
   }
 
 // Maintains Clean Tag System

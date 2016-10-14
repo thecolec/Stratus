@@ -14,11 +14,12 @@ class MyAPI extends API {
   protected function inv() {
     $db = new dbHost();
     if ($this->method == 'GET') {
+      if($this->authlvl < 1) return "Unauthorized";
       return $db -> getInv($this->request);
     }
     if ($this->method == 'POST') {
       if ($this->mode == "add") {
-        printf("Add function called");
+        if($this->authlvl < 2) return "Unauthorized";
         $db->addInv($this->request);
       }
     }
@@ -46,9 +47,9 @@ class MyAPI extends API {
         }
       // Token Verification Mode
       } else if($this->mode == "tokenVer") {
-          return $db->verToken($this->request);
+          return $db->verToken($this->request['token']);
       } else if($this->mode == "adminchk") {
-          return $db->verAdmin($this->request);
+          return $db->verAdmin($this->request["uid"]);
       }
     } else {
       return "Error: Invalid Request";

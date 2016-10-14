@@ -4,7 +4,7 @@
       Created by Cole Cassidy
       github.com/thecolec/stratus
       theColeC@gmail.com
-      Version: 0.2.1-19
+      Version: 0.4.0
 -->
 <!--__/\\\\\\\\\\\\_____/\\\________/\\\_____/\\\\\\\\\____________-->
 <!--__\/\\\////////\\\__\/\\\_______\/\\\___/\\\///////\\\_________-->
@@ -109,6 +109,7 @@
   <script src="js/stratusGrid.js"></script>         <!--Stratus grid system         -->
   <script src="js/stratusValidate.js"></script>     <!--Stratus form validation     -->
   <script src="js/stratusAuth.js"></script>         <!--Stratus user authentication -->
+  <script src="js/stratusAdminInv.js"></script>     <!--Stratus Admin Functions     -->
   <script src="js/Vibrant.js"></script>             <!--Vibrant image swatch thingy -->
 
 

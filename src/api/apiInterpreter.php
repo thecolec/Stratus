@@ -7,8 +7,11 @@ abstract class API
     protected $mode = '';
     protected $args = Array();
     protected $file = Null;
+    protected $authlvl = 0;
+    protected $token = '';
+    protected $uid = '';
     public function __construct($request) {
-        
+
         // Seperate the request into different vars
         $this->args = explode('/', rtrim($request, '/'));
         $this->endpoint = array_shift($this->args);
@@ -45,6 +48,7 @@ abstract class API
 
     //finds endpoint and asks it to respond.
     public function processAPI() {
+        $this->authToken($this->request);
         if (method_exists($this, $this->endpoint)) {
             return $this->response($this->{$this->endpoint}($this->args));
         }
@@ -71,11 +75,25 @@ abstract class API
     private function requestStatus($code) {
         $status = array(
             200 => 'OK',
+            401 => 'Unauthorized',
             404 => 'Not Found',
             405 => 'Method Not Allowed',
             500 => 'Internal Server Error',
         );
         return ($status[$code])?$status[$code]:$status[500];
+    }
+    // Validates Token
+    private function authToken($input) {
+      if(isset($input['token'])){
+        $this->token = $input['token'];
+        $db = new dbHost();
+        $auth = $db->verToken($this->token);
+        if($auth != "false") {
+          $this->authlvl = 1;
+          $this->uid = $auth;
+          $this->authlvl += $db->verAdmin($auth);
+        }
+      }
     }
 }
 

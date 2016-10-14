@@ -37,12 +37,12 @@ function checkToken() {
   }
 }
 function doesHaveAdmin(){
-  callAPI('api/auth/adminchk', 'POST', "token="+token, function(){
+  callAPI('api/auth/adminchk', 'POST', "uid="+uid, function(){
     if (this.readyState!==4) return;
     if (this.status!==200) return;
     var test = this.responseText;
     console.log("ADMIN-CHK: Verifying Admin");
-    if (test == "true") {
+    if (test == "1") {
       hasAdmin = true;
       console.log("ADMIN-CHK: "+hasAdmin);
     } else {
