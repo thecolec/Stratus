@@ -84,6 +84,7 @@ abstract class API
     }
     // Validates Token
     private function authToken($input) {
+      if(isset($input['token'])){
         $this->token = $input['token'];
         $db = new dbHost();
         $auth = $db->verToken($this->token);
