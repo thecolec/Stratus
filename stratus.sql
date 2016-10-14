@@ -1,21 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Oct 01, 2016 at 06:13 AM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.23
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `stratus`
 --
@@ -93,8 +75,8 @@ CREATE TABLE `inventory` (
   `name` varchar(32) NOT NULL,
   `description` varchar(128) DEFAULT NULL,
   `onSale` int(1) NOT NULL,
-  `inStock` tinyint(1) NOT NULL,
-  `isParent` int(1) NOT NULL,
+  `inStock` int(8) NOT NULL,
+  `avail` int(1) NOT NULL,
   `price` varchar(16) NOT NULL,
   `data` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -103,12 +85,13 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`itemCode`, `name`, `description`, `onSale`, `inStock`, `isParent`, `price`, `data`) VALUES
-(1, 'bubblemint', 'Tastes like bubblegum, tingles like mint!', 0, 1, 0, '6.99', ''),
-(2, 'lazarus', 'A great flavor, back from the dead.', 0, 1, 0, '17.99', ''),
+INSERT INTO `inventory` (`itemCode`, `name`, `description`, `onSale`, `inStock`, `avail`, `price`, `data`) VALUES
+(1, 'bubblemint', 'Tastes like bubblegum, tingles like mint!', 1, 1, 0, '6.99', ''),
+(2, 'lazarus', 'A great flavor, back from the dead.', 1, 1, 0, '17.99', ''),
 (3, 'butt', 'I have no idea what this is supposed to be.', 0, 0, 0, '69.69', ''),
 (4, 'test', 'testytesytetsey', 0, 1, 0, '00.00', ''),
-(5, 'Chocorush', 'A flood of your favorite coco cereal!', 0, 1, 0, '123.45', '');
+(5, 'Chocorush', 'A flood of your favorite coco cereal!', 1, 1, 0, '123.45', ''),
+(27, 'Delicious', 'flavor', 1, 12, 1, '12.45', '');
 
 -- --------------------------------------------------------
 
@@ -132,7 +115,11 @@ INSERT INTO `tagdir` (`tdid`, `tid`, `pid`) VALUES
 (3, 1, 5),
 (6, 2, 3),
 (7, 1, 4),
-(8, 2, 4);
+(8, 2, 4),
+(16, 19, 27),
+(17, 20, 27),
+(18, 1, 27),
+(19, 21, 27);
 
 -- --------------------------------------------------------
 
@@ -150,8 +137,15 @@ CREATE TABLE `tags` (
 --
 
 INSERT INTO `tags` (`tid`, `name`) VALUES
+(19, 'all'),
+(10, 'alternate'),
+(21, 'cole'),
+(13, 'flavor'),
+(2, 'hardware'),
 (1, 'juice'),
-(2, 'hardware');
+(9, 'test'),
+(11, 'yum'),
+(20, 'yummy');
 
 -- --------------------------------------------------------
 
@@ -170,8 +164,8 @@ CREATE TABLE `tokens` (
 
 INSERT INTO `tokens` (`uid`, `token`) VALUES
 (0, 'd05230cabaafcf86f6ef84c32ece0e34'),
-(16, '60a62a131f631ac9afc7686bb5096709'),
-(17, '8aa205eaf51c44becffde0fdf3d8647e');
+(16, '77ea8eebbcf1f7e319dca879eff54aaa'),
+(17, 'ab6d8c94a91ab39b7172188ac915b1fc');
 
 -- --------------------------------------------------------
 
@@ -236,7 +230,8 @@ ALTER TABLE `tagdir`
 -- Indexes for table `tags`
 --
 ALTER TABLE `tags`
-  ADD PRIMARY KEY (`tid`);
+  ADD PRIMARY KEY (`tid`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `tokens`
@@ -268,17 +263,17 @@ ALTER TABLE `emails`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `itemCode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `itemCode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `tagdir`
 --
 ALTER TABLE `tagdir`
-  MODIFY `tdid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `tdid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `users`
 --
