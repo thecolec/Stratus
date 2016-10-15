@@ -79,15 +79,30 @@ class dbHost {
     }
   }
   public function getInvW($request) {
-    $input = "SELECT * FROM inventory";
+    $input = "SELECT * FROM inventory WHERE `data` = \"-1\"";
     $test = $this->query($input);
     $rows = array();
+    $subrows = array();
     if ($test->num_rows > 0) {
       while($row=$test->fetch_assoc()) {
         $rows[] = $row;
       }
-      return json_encode($rows);
     }
+    $inputb = "SELECT * FROM inventory WHERE `data` != \"-1\"";
+    $testb = $this->query($inputb);
+    if($testb->num_rows > 0) {
+      while($row=$testb->fetch_assoc()) {
+        $subrows[] = $row;
+      }
+    }
+    for($x=0;$x < count($subrows);$x++) {
+      for($y=0;$y < count($rows); $y++) {
+        if($subrows[$x]['data'] == $rows[$y]['itemCode']) {
+          $rows[$y]['children'][] = $subrows[$x];
+        }
+      }
+    }
+    return json_encode($rows);
   }
 //TODO:60 Implement separate userInfo tables.
 //TODO:70 Unify internal UID lookup function.
@@ -187,7 +202,8 @@ class dbHost {
     $stock = $request["stock"];
     $price = $request["price"];
     $tags = $request["tags"];
-    $input = "INSERT INTO inventory (name, description, onSale, inStock, avail, price) VALUES ('{$name}', '{$description}', '{$sale}', '{$stock}', '{$avail}', '{$price}')";
+    $data = $request["data"];
+    $input = "INSERT INTO inventory (name, description, onSale, inStock, avail, price, data) VALUES ('{$name}', '{$description}', '{$sale}', '{$stock}', '{$avail}', '{$price}', '{$data}')";
     //$input = "INSERT INTO inventory (name, inStock, description, onSale) VALUES ('".$request["name"]."', '".$request["stock"]."', '".$request["description"]."', '".$request["sale"]."')";
     $this->query($input);
     $pid = $this->getPidByName($name);

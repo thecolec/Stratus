@@ -91,7 +91,7 @@ TODO: Add failure redirect.-->
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h1>Stratus</h1>
             <h3>"The update of many tags!"</h3>
-            <h5>Version: 0.4.1-105</h5>
+            <h5>Version: 0.4.1-195</h5>
             <h4>Created by Cole Cassidy</h4>
             <h4>@theColeC</h4>
           </div>

@@ -59,6 +59,14 @@
       <input type="" class="form-control" id="invAddPrice" placeholder="0.00" />
     </div>
   </div>
+  <!-- what is the Parents PID -->
+  <div class="form-group hidden">
+    <label for="invAddParentPID">Parent PID</label>
+    <div class="input-group">
+      <input type="" class="form-control" id="invAddParentPID" placeholder="must match existing Parent PID" value="-1"/>
+      <span class="input-group-addon">Parent</span>
+    </div>
+  </div>
   <!-- tags field (tags separated by ", " lower-case) -->
   <div class="form-group">
     <label for="invAddTags">Item Tags</label>

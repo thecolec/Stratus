@@ -7,6 +7,7 @@ function invAdd() {
   var stock = document.getElementById("invAddCount").value;
   var price = document.getElementById("invAddPrice").value;
   var tags = document.getElementById("invAddTags").value;
+  var data = document.getElementById("invAddParentPID").value;
   document.getElementById("invAddName").value = "";
   document.getElementById("invAddDesc").value = "";
   document.getElementById("invAddAvail").value = "";
@@ -14,6 +15,7 @@ function invAdd() {
   document.getElementById("invAddCount").value = "";
   document.getElementById("invAddPrice").value = "";
   document.getElementById("invAddTags").value = "";
+  document.getElementById("invAddParentPID").value = "";
   var input = "name="+name;
   input += "&description="+desc;
   input += "&avail="+avail;
@@ -21,6 +23,7 @@ function invAdd() {
   input += "&stock="+stock;
   input += "&price="+price;
   input += "&tags=massinv, "+tags;
+  input += "&data="+data;
   input += "&token="+token;
 
 
@@ -36,6 +39,23 @@ function invAdd() {
 
 function renderInvList() {
   for (x=0; x < Object.keys(invJson).length; x++) {
-    document.getElementById("invListBody").innerHTML += `<li class="list-group-item" onclick="viewItemCard(${x});">${invJson[x].name}</li>`;
+    numChildren = 0;
+    if(invJson[x].hasOwnProperty('children')) {
+      numChildren = invJson[x].children.length;
+    }
+    document.getElementById("invListBody").innerHTML += `<tr class="clickable" data-toggle="collapse" data-target=".childOf${invJson[x].itemCode}">
+                                                            <th scope="row">${invJson[x].itemCode}</th>
+                                                            <th>${invJson[x].name}</th>
+                                                            <th>${numChildren}</th>
+                                                        </tr>`;
+    if(numChildren > 0) {
+      for (y=0; y < invJson[x].children.length; y++) {
+      document.getElementById("invListBody").innerHTML += `<tr class="collapse childOf${invJson[x].itemCode} active">
+                                                              <td scope="row">${invJson[x].children[y].itemCode}</td>
+                                                              <td>${invJson[x].children[y].name}</td>
+                                                              <td></td>
+                                                          </tr>`;
+      }
+    }
   }
 }
