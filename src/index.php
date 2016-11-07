@@ -4,7 +4,7 @@
       Created by Cole Cassidy
       github.com/thecolec/stratus
       theColeC@gmail.com
-      Version: 0.4.1-195
+      Version: 0.4.1-210
 -->
 <!--__/\\\\\\\\\\\\_____/\\\________/\\\_____/\\\\\\\\\____________-->
 <!--__\/\\\////////\\\__\/\\\_______\/\\\___/\\\///////\\\_________-->
@@ -55,6 +55,9 @@
             <ul class="dropdown-menu" id="shopMenu">
               <li><a onclick="setFilter(this);" href="#" invTag="juice">Juices</a></li>
               <li><a onclick="setFilter(this);" href="#"invTag="hardware">Hardware</a></li>
+              <li>
+                <a onclick="getTags();" href="#">Filter</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -90,12 +93,6 @@
     <?php require_once('itemCard.php') ?>
   </div>
   <div class="container-fluid" id="overlay">
-    <div class="panel panel-default pull-left">
-      <div class="panel-body">
-        <button class="btn btn-success btn-lg" type="button" id="addFilterBtn" onclick="getTags();"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-        <button class="btn btn-danger btn-lg hidden " type="button" id="clearFilterBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-      </div>
-    </div>
     <div class="panel panel-default pull-right hidden" id="adminOverlay">
       <div class="panel-body">
         <button class="btn btn-danger btn-lg" type="button" onclick="gridRenderInvAdd('invAddChild.php');" id="addInvBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>

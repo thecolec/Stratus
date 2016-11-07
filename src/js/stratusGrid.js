@@ -59,7 +59,7 @@ function gridRenderFilters() {
 // Renders inventory-add panel
 function gridRenderInvAdd(test) {
   clearGrid();
-  contentGrid.innerHTML += `<div class="col-md-7" id="imMenu"></div><div class="col-md-4 col-md-offset-1"><div class="panel panel-primary" id="invList"></div></div>`
+  contentGrid.innerHTML += `<div class="col-md-7" id="imMenu"></div><br><div class="col-md-4 col-md-offset-1"><div class="panel panel-primary" id="invList"></div></div>`
   callAPI(test, "GET", "", function() {
     if (this.readyState !== 4) return;
     if (this.status !== 200) return;
@@ -72,7 +72,7 @@ function gridRenderInvAdd(test) {
     getInvW();
   });
 
-  
+
 
 }
 

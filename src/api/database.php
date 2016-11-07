@@ -132,7 +132,7 @@ class dbHost {
   }
 
   public function getTagList() {
-    $result = $this->query("SELECT DISTINCT(name) AS name FROM tags");
+    $result = $this->query("SELECT * FROM tags WHERE vis = \"1\" GROUP BY(name) ORDER BY(heading)");
     $rows = array();
     while($row = $result->fetch_assoc()) {
       $rows[]= $row;

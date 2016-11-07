@@ -174,7 +174,6 @@ function getInv(filterList) {
     if (this.readyState !== 4) return;
     if (this.status !== 200) return;
     var inv = this.responseText;
-    console.log("INV: "+inv);
     if(inv.length>0){
       invJson = JSON.parse(inv).item;
       renderStratus();
